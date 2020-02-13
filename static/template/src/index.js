@@ -1,2 +1,7 @@
 // Add your code here
-console.log('It works!')
+
+// eslint-disable-next-line import/prefer-default-export
+export const helloWorld = () => {
+  // eslint-disable-next-line no-console
+  console.log('Hello from make-js-lib!')
+}

@@ -88,8 +88,12 @@ const packageJsonTemplate = {
     'check-all': 'yarn lint && yarn typecheck ',
     release: 'yarn build && np',
     clean: `rm -f ${appName}.tgz`,
-    'build-test': `yarn clean && yarn build && yarn pack --filename ${appName}.tgz && cd example && yarn refresh`,
+    'build-test': `yarn clean && yarn build && yarn pack --filename ${appName}.tgz && cd example && yarn refresh && yarn start`,
   },
+  main: 'dist/index.js',
+  files: [
+    'dist/',
+  ],
   ava: {
     require: [
       '@babel/register',
@@ -101,11 +105,6 @@ fs.writeFileSync(
   path.join(rootPath, 'package.json'),
   JSON.stringify(packageJsonTemplate, null, 2) + os.EOL,
 )
-
-// TODO: Remove if no dependencies are needed
-const allDependencies = [
-  'lodash',
-]
 
 // TODO: Versioning? Tag releases, generate patch notes
 const devDependencies = [
@@ -121,7 +120,7 @@ const devDependencies = [
   'ava',
   // * --
   // * Other
-  'parcel-bundler',
+  'parcel@next',
   'np',
   // * --
 ]
@@ -133,11 +132,9 @@ const pathArg = ['--cwd', rootPath]
 const defaultArgs = ['add', '--exact']
 
 const command = 'yarnpkg'
-const productionArgs = defaultArgs.concat(allDependencies).concat(pathArg)
 const devArgs = defaultArgs.concat('--dev').concat(devDependencies).concat(pathArg)
 
-spawnCommand({ command, args: productionArgs })
-  .then(() => spawnCommand({ command, args: devArgs }))
+spawnCommand({ command, args: devArgs })
   .then(() => {
     console.log()
     console.log('Copying files from template')
@@ -149,7 +146,7 @@ spawnCommand({ command, args: productionArgs })
     try {
       fs.copySync(templateDirectory, rootPath)
     } catch (error) {
-      console.log('ERROR3', error)
+      console.log('ERROR', error)
     }
 
     // TODO: Create an initial commit
