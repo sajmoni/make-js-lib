@@ -5,6 +5,7 @@ const commander = require('commander')
 const chalk = require('chalk')
 const path = require('path')
 const os = require('os')
+const { execSync } = require('child_process')
 
 const packageJson = require('./package.json')
 const spawnCommand = require('./spawnCommand.js')
@@ -13,16 +14,47 @@ const spawnCommand = require('./spawnCommand.js')
 
 const displayDoneMessage = ({ name, rootPath }) => {
   console.log()
-  console.log(`Success! Created ${chalk.cyan(name)} at ${chalk.cyan(rootPath)}`)
+  console.log(`${chalk.green('  Success!')} Created ${chalk.cyan(name)} at ${chalk.cyan(rootPath)}`)
   console.log()
-  console.log('Start by typing:')
+  console.log('  Start by typing:')
   console.log()
-  console.log(chalk.cyan(`  cd ${name}`))
+  console.log(chalk.cyan(`    cd ${name}`))
   console.log()
-  console.log(`  ${chalk.cyan('yarn start')}`)
+  console.log(`    ${chalk.cyan('yarn start')}`)
   console.log()
-  console.log('Good luck!')
+  console.log('  Good luck!')
   console.log()
+}
+
+const tryGitInit = ({ rootPath, appName }) => {
+  let didInit = false
+  try {
+    execSync(`git init ${appName}`, { stdio: 'ignore' })
+    didInit = true
+
+    execSync(`git -C ${appName}/ add -A`, { stdio: 'ignore' })
+
+    execSync(`git -C ${appName}/ commit -m "Initial commit from Make JS Lib"`, {
+      stdio: 'ignore',
+    })
+
+    execSync(`git -C ${appName}/ branch release`, { stdio: 'ignore' })
+
+    return true
+  } catch (e) {
+    if (didInit) {
+      // If we successfully initialized but couldn't commit,
+      // maybe the commit author config is not set.
+      // Remove the Git files to avoid a half-done state.
+      // TODO: Test this by adding to use-cases file
+      try {
+        fs.removeSync(path.join(rootPath, '.git'))
+      } catch (removeErr) {
+        // Ignore.
+      }
+    }
+    return false
+  }
 }
 
 let projectName
@@ -125,7 +157,7 @@ const devDependencies = [
   // * --
 ]
 
-console.log('Installing packages. This might take a couple of minutes.')
+console.log('  Installing packages. This might take a couple of minutes.')
 console.log()
 
 const pathArg = ['--cwd', rootPath]
@@ -137,11 +169,9 @@ const devArgs = defaultArgs.concat('--dev').concat(devDependencies).concat(pathA
 spawnCommand({ command, args: devArgs })
   .then(() => {
     console.log()
-    console.log('Copying files from template')
+    console.log('  Copying files from template.')
 
     const templateDirectory = `${__dirname}/template`
-    console.log('TCL: rootPath', rootPath)
-    console.log('TCL: templateDirectory', templateDirectory)
 
     try {
       fs.copySync(templateDirectory, rootPath)
@@ -149,12 +179,16 @@ spawnCommand({ command, args: devArgs })
       console.log('ERROR', error)
     }
 
-    // TODO: Create an initial commit
+    if (tryGitInit({ rootPath, appName })) {
+      console.log()
+      console.log(' Initialized a git repository.')
+    }
+
     displayDoneMessage({ name: projectName, rootPath })
   }).catch((reason) => {
     console.log()
-    console.log(chalk.red('Aborting installation.'))
-    console.log(`Command failed: ${chalk.cyan(reason.command)}`)
+    console.log(chalk.red('  Aborting installation.'))
+    console.log(`  Command failed: ${chalk.cyan(reason.command)}`)
     console.log()
   })
 
