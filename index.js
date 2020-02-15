@@ -115,7 +115,7 @@ const packageJsonTemplate = {
     start: 'parcel src/index.js --no-autoinstall --no-cache',
     build: 'rm -rf dist && parcel build src/index.js --no-cache',
     test: 'ava',
-    lint: 'eslint .',
+    lint: 'eslint src',
     typecheck: 'tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js',
     'check-all': 'yarn lint && yarn typecheck ',
     release: 'yarn build && np',
@@ -129,6 +129,18 @@ const packageJsonTemplate = {
   ava: {
     require: [
       '@babel/register',
+    ],
+  },
+  husky: {
+    hooks: {
+      'pre-commit': 'lint-staged',
+      'pre-push': 'lint-staged',
+    },
+  },
+  'lint-staged': {
+    'src/**/*.{js,md}': [
+      'yarn test',
+      'yarn lint',
     ],
   },
 }
@@ -154,6 +166,8 @@ const devDependencies = [
   // * Other
   'parcel@next',
   'np',
+  'husky',
+  'lint-staged',
   // * --
 ]
 
