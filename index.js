@@ -132,12 +132,11 @@ const packageJsonTemplate = {
   husky: {
     hooks: {
       'pre-commit': 'lint-staged',
-      'pre-push': 'lint-staged',
+      'pre-push': 'yarn test',
     },
   },
   'lint-staged': {
     'src/**/*.{js,md}': [
-      'yarn test',
       'yarn lint',
     ],
   },
