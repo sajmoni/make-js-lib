@@ -26,12 +26,18 @@ const displayDoneMessage = ({ name, rootPath }) => {
   console.log()
 }
 
-const tryGitInit = ({ rootPath, appName }) => {
-  let didInit = false
+const tryGitInit = ({ appName }) => {
   try {
     execSync(`git init ${appName}`, { stdio: 'ignore' })
-    didInit = true
+    return true
+  } catch (e) {
+    console.warn('  Git repo not initialized', e)
+    return false
+  }
+}
 
+const tryGitCommit = ({ rootPath, appName }) => {
+  try {
     execSync(`git -C ${appName}/ add -A`, { stdio: 'ignore' })
 
     execSync(`git -C ${appName}/ commit -m "Initial commit from Make JS Lib"`, {
@@ -40,16 +46,14 @@ const tryGitInit = ({ rootPath, appName }) => {
 
     return true
   } catch (e) {
-    if (didInit) {
-      // If we successfully initialized but couldn't commit,
-      // maybe the commit author config is not set.
-      // Remove the Git files to avoid a half-done state.
-      // TODO: Test this by adding to use-cases file
-      try {
-        fs.removeSync(path.join(rootPath, '.git'))
-      } catch (removeErr) {
-        // Ignore.
-      }
+    // * It was not possible to commit.
+    // * Maybe the commit author config is not set.
+    // * Remove the Git files to avoid a half-done state.
+    // TODO: Test this by adding to use-cases file
+    try {
+      fs.removeSync(path.join(rootPath, '.git'))
+    } catch (removeErr) {
+      // Ignore.
     }
     return false
   }
@@ -79,11 +83,11 @@ if (typeof projectName === 'undefined') {
     `  ${chalk.cyan(program.name())} ${chalk.green('<project-directory>')}`,
   )
   console.log()
-  console.log('For example:')
-  console.log(`  ${chalk.cyan(program.name())} ${chalk.green('my-js-lib')}`)
+  console.log('  For example:')
+  console.log(`    ${chalk.cyan(program.name())} ${chalk.green('my-js-lib')}`)
   console.log()
   console.log(
-    `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`,
+    `  Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`,
   )
   console.log()
   process.exit(1)
@@ -95,13 +99,13 @@ const appName = path.basename(rootPath)
 
 if (fs.existsSync(rootPath)) {
   console.log()
-  console.log(`${chalk.red('Project folder already exists')} ${chalk.green(rootPath)}`)
+  console.log(`${chalk.red('  Project folder already exists')} ${chalk.green(rootPath)}`)
   console.log()
   process.exit(1)
 }
 
 console.log()
-console.log(`Creating a new project in ${chalk.green(rootPath)}`)
+console.log(`  Creating a new project in ${chalk.green(rootPath)}`)
 console.log()
 
 fs.mkdirSync(rootPath)
@@ -171,6 +175,14 @@ const devDependencies = [
   // * --
 ]
 
+let initializedGit = false
+
+if (tryGitInit({ rootPath, appName })) {
+  initializedGit = true
+  console.log('  Initialized a git repository.')
+  console.log()
+}
+
 console.log('  Installing packages.')
 console.log()
 
@@ -193,9 +205,9 @@ spawnCommand({ command, args: devArgs })
       console.log('ERROR', error)
     }
 
-    if (tryGitInit({ rootPath, appName })) {
+    if (initializedGit && tryGitCommit({ rootPath, appName })) {
       console.log()
-      console.log('  Initialized a git repository.')
+      console.log('Created git commit.')
     }
 
     displayDoneMessage({ name: projectName, rootPath })
