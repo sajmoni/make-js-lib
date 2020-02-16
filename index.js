@@ -171,7 +171,7 @@ const devDependencies = [
   // * --
 ]
 
-console.log('  Installing packages. This might take a couple of minutes.')
+console.log('  Installing packages.')
 console.log()
 
 const pathArg = ['--cwd', rootPath]
@@ -195,7 +195,7 @@ spawnCommand({ command, args: devArgs })
 
     if (tryGitInit({ rootPath, appName })) {
       console.log()
-      console.log(' Initialized a git repository.')
+      console.log('  Initialized a git repository.')
     }
 
     displayDoneMessage({ name: projectName, rootPath })
@@ -205,5 +205,3 @@ spawnCommand({ command, args: devArgs })
     console.log(`  Command failed: ${chalk.cyan(reason.command)}`)
     console.log()
   })
-
-// TODO: Tests
