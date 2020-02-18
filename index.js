@@ -120,7 +120,7 @@ const packageJsonTemplate = {
     lint: 'eslint src',
     typecheck: 'tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js',
     'check-all': 'yarn lint && yarn typecheck ',
-    release: 'yarn build && np',
+    release: 'yarn audit && yarn build && np',
     clean: `rm -f ${appName}.tgz`,
     'build-test': `yarn clean && yarn build && yarn pack --filename ${appName}.tgz && cd example && yarn refresh && yarn start`,
   },
