@@ -20,6 +20,7 @@
   "scripts": {
     "clean": "rm -rf ./example/test-lib && rm -f make-js-lib.tgz",
     "build-test": "yarn clean && yarn build && yarn pack --filename make-js-lib.tgz && cd example && yarn refresh && yarn make-js-lib test-lib && cd test-lib && yarn build-test",
+    "build-test-all": "yarn clean && yarn build && yarn pack --filename make-js-lib.tgz && cd example && yarn refresh && yarn test-all-use-cases",
     "lint": "eslint src",
     "build": "rm -rf dist && parcel build ./index.js --target node --no-cache",
     "typecheck": "tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js",
