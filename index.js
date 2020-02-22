@@ -10,7 +10,7 @@ const { execSync } = require('child_process')
 const packageJson = require('./package.json')
 const spawnCommand = require('./spawnCommand.js')
 
-// The structure of this code is inspired by the create-react-app source code
+// * The structure of this code is inspired by the create-react-app source code
 
 const displayDoneMessage = ({ name, rootPath }) => {
   console.log()
@@ -112,7 +112,9 @@ fs.mkdirSync(rootPath)
 
 const packageJsonTemplate = {
   name: appName,
-  version: '0.0.1',
+  licence: 'MIT',
+  version: '0.0.0',
+  keywords: [],
   scripts: {
     start: 'parcel src/index.js --no-autoinstall --no-cache',
     build: 'rm -rf dist && parcel build src/index.js --no-cache',
@@ -120,9 +122,9 @@ const packageJsonTemplate = {
     lint: 'eslint src',
     typecheck: 'tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js',
     'check-all': 'yarn lint && yarn typecheck ',
-    release: 'yarn audit && yarn build && np',
+    release: 'yarn clean && yarn audit && yarn build && np',
     clean: `rm -f ${appName}.tgz`,
-    'build-test': `yarn clean && yarn build && yarn pack --filename ${appName}.tgz && cd example && yarn refresh && yarn start`,
+    'build-test': `yarn clean && yarn build && yarn pack --filename ${appName}.tgz && cd example && yarn refresh && yarn test && yarn start`,
   },
   main: 'dist/index.js',
   files: [
@@ -149,7 +151,6 @@ fs.writeFileSync(
   JSON.stringify(packageJsonTemplate, null, 2) + os.EOL,
 )
 
-// TODO: Versioning? Tag releases, generate patch notes
 const devDependencies = [
   // * Code quality
   'eslint',
