@@ -129,9 +129,7 @@ const packageJsonTemplate = {
     'dist/',
   ],
   ava: {
-    require: [
-      '@babel/register',
-    ],
+    babel: true,
   },
   husky: {
     hooks: {
@@ -160,8 +158,7 @@ const devDependencies = [
   'typescript',
   // * --
   // * Testing
-  '@babel/preset-env',
-  '@babel/register',
+  '@ava/babel',
   'ava',
   // * --
   // * Other
