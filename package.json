@@ -20,7 +20,7 @@
     "build": "rm -rf dist && parcel build ./index.js --target node --no-cache",
     "typecheck": "tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js",
     "check-all": "yarn lint && yarn typecheck && yarn validate-ci",
-    "release": "yarn build && np --no-tests"
+    "release": "yarn clean && yarn audit && yarn build && np --no-tests"
   },
   "dependencies": {
     "chalk": "3.0.0",
