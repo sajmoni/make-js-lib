@@ -112,7 +112,7 @@ fs.mkdirSync(rootPath)
 
 const packageJsonTemplate = {
   name: appName,
-  licence: 'MIT',
+  license: 'MIT',
   version: '0.0.0',
   keywords: [],
   scripts: {
