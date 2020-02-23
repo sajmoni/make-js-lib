@@ -1,6 +1,6 @@
 {
   "name": "make-js-lib",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A CLI tool to generate javascript libraries",
   "main": "index.js",
   "author": "Simon Lagos <simon.lagos.sallhed@gmail.com>",
