@@ -51,7 +51,7 @@ _Usage with `npx` ensures that you are always using the latest version_
 
 **What to do after script is run**
 
- - Update "keywords" section in `package.json`, this helps people find your package on `npm`.
+ - Update the "keywords" section in `package.json`, this helps people find your package on `npm`.
 
  - Add a license: https://help.github.com/en/github/building-a-strong-community/adding-a-license-to-a-repository
 
