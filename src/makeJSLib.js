@@ -15,21 +15,21 @@ const tryGitCommit = require('./git/commit')
 // TODO: Output dependencies installed
 const devDependencies = [
   // * Code quality
-  'eslint',
-  'eslint-config-airbnb-base',
-  'eslint-plugin-import',
-  'typescript',
-  'husky',
-  'lint-staged',
+  'eslint@6.8.0',
+  'eslint-config-airbnb-base@14.0.0',
+  'eslint-plugin-import@2.20.1',
+  'typescript@3.8.2',
+  'husky@4.2.3',
+  'lint-staged@10.0.7',
   // * --
   // * Testing
-  '@ava/babel',
-  'ava',
+  '@ava/babel@1.0.1',
+  'ava@3.4.0',
   // * --
   // * Other
-  'parcel@next',
-  'np',
-  'plop',
+  'parcel@2.0.0-alpha.3.2',
+  'np@6.1.0',
+  'plop@2.5.4',
   // * --
 ]
 
