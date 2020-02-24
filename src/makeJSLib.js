@@ -3,7 +3,6 @@ const fs = require('fs-extra')
 const chalk = require('chalk')
 const path = require('path')
 const os = require('os')
-const { execSync } = require('child_process')
 
 const spawnCommand = require('./spawnCommand')
 const getPackageJsonTemplate = require('./getPackageJsonTemplate.js')
