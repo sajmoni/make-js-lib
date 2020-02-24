@@ -66,14 +66,7 @@ module.exports = ({ projectName }) => {
     process.exit(1)
   }
 
-  const res = execSync('git rev-parse --show-prefix --git-common-dir').toString()
-  console.log('TCL: before init', res)
-
   const initializedGit = tryGitInit()
-
-  const res2 = execSync('git rev-parse --show-prefix --git-common-dir').toString()
-  console.log('TCL: after init: ', res2)
-  console.log('TCL: after init, cwd: ', process.cwd())
 
   console.log()
   console.log('  Copying files from template.')
