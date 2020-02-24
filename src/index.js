@@ -31,4 +31,10 @@ if (typeof projectName === 'undefined') {
   process.exit(1)
 }
 
+// TODO: Make this output look nicer
+console.log()
+console.log(`  ${packageJson.name}`)
+console.log()
+console.log(`  version: ${packageJson.version}`)
+
 makeJSLib({ projectName })
