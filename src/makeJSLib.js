@@ -24,6 +24,7 @@ const devDependencies = [
   // * Testing
   '@ava/babel@1.0.1',
   'ava@3.4.0',
+  'eslint-plugin-ava@10.2.0',
   // * --
   // * Other
   'parcel@2.0.0-alpha.3.2',

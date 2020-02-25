@@ -1,4 +1,6 @@
-extends: airbnb-base
+extends: 
+  - airbnb-base
+  - plugin:ava/recommended
 rules:
   no-use-before-define: off
   import/prefer-default-export: off
