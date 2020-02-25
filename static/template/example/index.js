@@ -1,4 +1,4 @@
-// TODO: Insert library name here
-const { helloWorld } = require('test-lib')
+// TODO: Insert library name here, using handlebars
+const { getGreeting } = require('test-lib')
 
-helloWorld()
+console.log(getGreeting())
