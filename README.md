@@ -11,6 +11,8 @@
   <img src="https://badgen.net/github/last-commit/sajmoni/make-js-lib?icon=github" />
 </div>
 
+*This project is inspired by [`create-react-app`](https://github.com/facebook/create-react-app).*
+
 ---
 
 ## :sparkles: Features
@@ -27,29 +29,74 @@
 
  - :trophy: [`badgen`](https://github.com/badgen/badgen.net) - Readme badges
 
- - :recycle: [`plop`](https://github.com/plopjs/plop) - Micro-generator framework that makes it easy for an entire team to create files with a level of uniformity.
+ - :recycle: [`plop`](https://github.com/plopjs/plop) - Micro-generator framework.
 
  - Workflow to test your library locally before publishing
 
-<!-- For command line tools: -->
+Command line tools also include:
 
- <!-- - [`commander`]()  -->
+ - :boat: [`yargs`](https://github.com/yargs/yargs) - Build cli tools
 
-<!-- parcel-plugin-shebang -->
+ - :crayon: [`chalk`](https://github.com/chalk/chalk) - Colorize output
 
 ---
 
 ## Usage
 
 ```
-npx make-js-lib [library name]
+npx make-js-lib <library-name> [options]
 ```
 
 _Usage with `npx` ensures that you are always using the latest version_
 
+`make-js-lib` will create a new folder with the same name as your `<library-name>`. Then it will copy all template files to that folder and install the dependencies.
+
+### Before you start
+
+If you intend to publish this to `npm`, then you should check the availability of your name with [`npm-name-cli`](https://github.com/sindresorhus/npm-name-cli): `npx npm-name-cli <library-name>`
+
+### Example usage
+
+```
+npx make-js-lib my-lib
+```
+
+The output file structure will look like this:
+
+```
+my-lib
+├── .gitignore
+├── .eslintrc.yml
+├── .npmrc
+├── README.md
+├── package.json
+├── plopfile.js
+├── docs
+├── node_modules
+├── example
+│   ├── index.js
+│   └── package.json
+├── plop
+│   ├── docs.hbs
+│   └── test.hbs
+└── src
+    ├── index.js
+    └── index.test.js
+```
+
+### Options
+
+`--cli`
+
+Create a cli tool. Will add additional dependencies [`yargs`](https://github.com/yargs/yargs) and [`chalk`](https://github.com/chalk/chalk)
+
+`--verbose`
+
+Display full output. Good for debugging.
+
 ---
 
-**What to do after script is run**
+## What to do after script is run
 
  - Update the "keywords" section in `package.json`, this helps people find your package on `npm`.
 
@@ -66,13 +113,27 @@ _Usage with `npx` ensures that you are always using the latest version_
 
 _This is required for `np` to be able to publish a changelog_
 
+ - Add more badges
+
+https://badgen.net/
+
 ---
 
-## Tips
+## Things you might want to do if your library becomes popular
 
 ### Documentation
 
 If you need more advanced documentation, including a blog and translations, check out [`docosaurus`](https://github.com/facebook/docusaurus).
+
+### Add GitHub issue and PR templates
+
+https://help.github.com/en/github/building-a-strong-community/about-issue-and-pull-request-templates
+
+---
+
+## :exclamation: Disclaimer
+
+This tool has only been tested on Mac.
 
 ---
 
@@ -95,4 +156,3 @@ Command | Description
 2. `yarn build-test`
 3. `cd example` and verify that your changes work.
 4. Push `master` or make `PR`
-
