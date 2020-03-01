@@ -79,6 +79,14 @@ module.exports = ({ projectName }) => {
     console.log(`${chalk.red('  Error: Could not copy template files: ')} ${error}`)
   }
 
+  // * Rename gitignore to prevent npm from renaming it to .npmignore
+  // * See: https://github.com/npm/npm/issues/1862
+  fs.moveSync(
+    path.join(rootPath, 'gitignore'),
+    path.join(rootPath, '.gitignore'),
+    [],
+  )
+
   console.log('  Installing packages.')
   console.log()
 
