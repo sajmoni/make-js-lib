@@ -7,11 +7,11 @@
 
 <div align="center">
   <img src="https://badgen.net/npm/v/make-js-lib?icon=npm" />
-  <img src="https://badgen.net/npm/dw/make-js-lib?icon=npm" />
+  <!-- <img src="https://badgen.net/npm/dw/make-js-lib?icon=npm" /> -->
   <img src="https://badgen.net/github/last-commit/sajmoni/make-js-lib?icon=github" />
 </div>
 
-*This project is inspired by [`create-react-app`](https://github.com/facebook/create-react-app).*
+`make-js-lib` can be used to generate a JavaScript library or a CLI tool with the `--cli` flag.
 
 ---
 
@@ -24,6 +24,8 @@
  - :straight_ruler: [`ava`](https://github.com/avajs/ava) - Super simple test framework
 
  - :policeman: [`eslint`](https://github.com/eslint/eslint) and [`tsc`](https://github.com/microsoft/TypeScript) - Ensure code quality
+
+ - :nail_care: [`prettier`](https://github.com/prettier/prettier) - Code formatter
 
  - :no_entry_sign: :poop: [`lint-staged`](https://github.com/okonet/lint-staged) + :dog: [`husky`](https://github.com/typicode/husky) - Ensure code quality on each git commit and push
 
@@ -49,7 +51,11 @@ npx make-js-lib <library-name> [options]
 
 _Usage with `npx` ensures that you are always using the latest version_
 
-`make-js-lib` will create a new folder with the same name as your `<library-name>`. Then it will copy all template files to that folder and install the dependencies.
+`make-js-lib` will do the following:
+
+ - Create a new folder called `<library-name>`
+ - Copy all template files to that folder
+ - Install the dependencies
 
 ### Before you start
 
@@ -98,8 +104,6 @@ Display full output. Good for debugging.
 
 ## What to do after script is run
 
- - Update the "keywords" section in `package.json`, this helps people find your package on `npm`.
-
  - Add a license: https://help.github.com/en/github/building-a-strong-community/adding-a-license-to-a-repository
 
  - Update the repository field in package.json:
@@ -113,9 +117,13 @@ Display full output. Good for debugging.
 
 _This is required for `np` to be able to publish a changelog_
 
- - Add more badges
+ - Set your repository URL
 
-https://badgen.net/
+### You might also want to
+
+ - Update the `keywords` section in `package.json`, this helps people find your package on `npm`.
+
+ - Add or remove badges: https://badgen.net/
 
 ---
 
@@ -123,17 +131,11 @@ https://badgen.net/
 
 ### Documentation
 
-If you need more advanced documentation, including a blog and translations, check out [`docosaurus`](https://github.com/facebook/docusaurus).
+If you need more advanced documentation, including a blog and translations, one good option is  [`docosaurus`](https://github.com/facebook/docusaurus).
 
 ### Add GitHub issue and PR templates
 
 https://help.github.com/en/github/building-a-strong-community/about-issue-and-pull-request-templates
-
----
-
-## :exclamation: Disclaimer
-
-This tool has only been tested on Mac.
 
 ---
 
@@ -153,6 +155,5 @@ Command | Description
 ### Workflow
 
 1. Make changes
-2. `yarn build-test`
-3. `cd example` and verify that your changes work.
-4. Push `master` or make `PR`
+2. `yarn build-test` and verify that your changes work
+4. Push `master` or make a `PR`
