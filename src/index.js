@@ -23,6 +23,7 @@ const program = new commander.Command(packageJson.name)
     console.log(`    Only ${chalk.green('<project-directory>')} is required.`)
     console.log()
   })
+  .option('--cli', 'create CLI tool')
   .parse(process.argv)
 
 
@@ -37,4 +38,4 @@ console.log(`  ${packageJson.name}`)
 console.log()
 console.log(`  version: ${packageJson.version}`)
 
-makeJSLib({ projectName })
+makeJSLib({ projectName, cli: program.cli })

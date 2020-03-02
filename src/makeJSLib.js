@@ -11,7 +11,12 @@ const displayDoneMessage = require('./message/done')
 const tryGitInit = require('./git/init')
 const tryGitCommit = require('./git/commit')
 
-// TODO: Strictly set version numbers
+// * Only used with --cli flag
+const dependencies = [
+  'yargs@15.1.0',
+  'chalk@3.0.0',
+]
+
 // TODO: Output dependencies installed
 const devDependencies = [
   // * Code quality
@@ -34,7 +39,7 @@ const devDependencies = [
   // * --
 ]
 
-module.exports = ({ projectName }) => {
+module.exports = ({ projectName, cli }) => {
   const rootPath = path.resolve(projectName)
   const appName = path.basename(rootPath)
 
@@ -46,12 +51,16 @@ module.exports = ({ projectName }) => {
   }
 
   console.log()
-  console.log(`  Creating a new project in ${chalk.green(rootPath)}`)
+  if (cli) {
+    console.log(`  Creating a CLI tool in ${chalk.green(rootPath)}`)
+  } else {
+    console.log(`  Creating a library in ${chalk.green(rootPath)}`)
+  }
   console.log()
 
   fs.mkdirSync(rootPath)
 
-  const packageJsonTemplate = getPackageJsonTemplate({ appName })
+  const packageJsonTemplate = getPackageJsonTemplate({ appName, cli })
 
   fs.writeFileSync(
     path.join(rootPath, 'package.json'),
@@ -101,8 +110,10 @@ module.exports = ({ projectName }) => {
   const command = 'yarn'
   const defaultArgs = ['add', '--exact']
   const devArgs = defaultArgs.concat('--dev').concat(devDependencies)
+  const prodArgs = defaultArgs.concat(dependencies)
 
   spawnCommand({ command, args: devArgs })
+    .then(() => (cli ? spawnCommand({ command, args: prodArgs }) : Promise.resolve()))
     .then(() => {
       if (initializedGit) {
         tryGitCommit({ rootPath })

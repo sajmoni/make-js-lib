@@ -1,5 +1,5 @@
 
-module.exports = ({ appName }) => {
+module.exports = ({ appName, cli }) => {
   const packageJsonTemplate = {
     name: appName,
     license: 'MIT',
@@ -15,7 +15,8 @@ module.exports = ({ appName }) => {
       plop: 'plop',
       release: 'yarn clean && yarn audit && yarn build && np',
       clean: `rm -f ${appName}.tgz`,
-      'build-test': `yarn clean && yarn build && yarn pack --filename ${appName}.tgz && cd example && yarn refresh && yarn start`,
+      // TODO: Generate these files
+      'build-test': cli ? './test-cli.sh' : './test-library.sh',
     },
     main: 'dist/index.js',
     files: [
@@ -37,5 +38,12 @@ module.exports = ({ appName }) => {
       ],
     },
   }
+
+  if (cli) {
+    packageJsonTemplate.bin = 'dist/index.js'
+  } else {
+    packageJsonTemplate.main = 'dist/index.js'
+  }
+
   return packageJsonTemplate
 }
