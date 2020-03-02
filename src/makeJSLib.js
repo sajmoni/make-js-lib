@@ -3,6 +3,7 @@ const fs = require('fs-extra')
 const chalk = require('chalk')
 const path = require('path')
 const os = require('os')
+const Mustache = require('mustache')
 
 const spawnCommand = require('./spawnCommand')
 const getPackageJsonTemplate = require('./getPackageJsonTemplate.js')
@@ -85,6 +86,13 @@ module.exports = ({ projectName }) => {
     path.join(rootPath, 'gitignore'),
     path.join(rootPath, '.gitignore'),
     [],
+  )
+
+  const readmeTemplateString = fs.readFileSync(`${__dirname}/README.template.md`).toString()
+  const readme = Mustache.render(readmeTemplateString, { libraryName: projectName })
+  fs.writeFileSync(
+    path.join(rootPath, 'README.md'),
+    readme,
   )
 
   console.log('  Installing packages.')
