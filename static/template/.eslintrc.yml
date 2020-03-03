@@ -1,5 +1,5 @@
 extends: 
-  - airbnb-base
+  - prettier
   - plugin:ava/recommended
 rules:
   no-use-before-define: off

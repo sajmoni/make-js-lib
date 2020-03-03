@@ -21,11 +21,11 @@ const dependencies = [
 const devDependencies = [
   // * Code quality
   'eslint@6.8.0',
-  'eslint-config-airbnb-base@14.0.0',
-  'eslint-plugin-import@2.20.1',
+  'eslint-config-prettier@6.10.0',
   'typescript@3.8.2',
   'husky@4.2.3',
   'lint-staged@10.0.7',
+  'prettier@1.19.1',
   // * --
   // * Testing
   '@ava/babel@1.0.1',

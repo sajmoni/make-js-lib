@@ -10,6 +10,8 @@ module.exports = ({ appName, cli }) => {
       build: 'rm -rf dist && parcel build src/index.js --no-cache',
       test: 'ava',
       lint: 'eslint src',
+      // eslint-disable-next-line quotes
+      format: "prettier --write \"src/**/*.js\"",
       typecheck: 'tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js',
       'check-all': 'yarn lint && yarn typecheck ',
       plop: 'plop',
@@ -25,6 +27,11 @@ module.exports = ({ appName, cli }) => {
     ava: {
       babel: true,
     },
+    prettier: {
+      trailingComma: 'all',
+      semi: false,
+      singleQuote: true,
+    },
     husky: {
       hooks: {
         'pre-commit': 'lint-staged',
@@ -35,6 +42,7 @@ module.exports = ({ appName, cli }) => {
       'src/**/*.{js,md}': [
         'yarn lint',
         'yarn typecheck',
+        'yarn format',
       ],
     },
   }
