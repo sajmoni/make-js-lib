@@ -12,7 +12,7 @@ module.exports = ({ appName, cli }) => {
       lint: 'eslint src',
       // eslint-disable-next-line quotes
       format: "prettier --write \"src/**/*.js\"",
-      typecheck: 'tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 src/*.js',
+      typecheck: 'tsc src/*.js',
       'check-all': 'yarn lint && yarn typecheck ',
       plop: 'plop',
       release: 'yarn clean && yarn audit && yarn build && np',
