@@ -103,6 +103,20 @@ module.exports = ({ projectName, cli }) => {
     readme,
   )
 
+  let buildFileName
+  if (cli) {
+    buildFileName = 'build-cli.sh'
+  } else {
+    buildFileName = 'build-library.sh'
+  }
+
+  const buildFile = fs.readFileSync(`${__dirname}/${buildFileName}`).toString()
+
+  fs.writeFileSync(
+    path.join(rootPath, buildFileName),
+    buildFile,
+  )
+
   console.log('  Installing packages.')
   console.log()
 
