@@ -7,8 +7,6 @@ const packageJson = require('../package.json')
 const displayNoProjectNameMessage = require('./message/noProjectName')
 const makeJSLib = require('./makeJSLib')
 
-// * The structure of this code is inspired by the create-react-app source code
-
 let projectName
 
 const program = new commander.Command(packageJson.name)

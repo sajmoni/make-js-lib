@@ -31,7 +31,7 @@
 
  - :trophy: [`badgen`](https://github.com/badgen/badgen.net) - Readme badges
 
- - :recycle: [`plop`](https://github.com/plopjs/plop) - Micro-generator framework.
+ - :recycle: [`plop`](https://github.com/plopjs/plop) - Micro-generator framework
 
  - Workflow to test your library locally before publishing
 
@@ -131,7 +131,7 @@ _This is required for `np` to be able to publish a changelog_
 
 ### Documentation
 
-If you need more advanced documentation, including a blog and translations, one good option is  [`docosaurus`](https://github.com/facebook/docusaurus).
+If you need more advanced documentation, including a blog and translations, one good option is [`docosaurus`](https://github.com/facebook/docusaurus).
 
 ### Add GitHub issue and PR templates
 

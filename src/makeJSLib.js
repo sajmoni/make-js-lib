@@ -70,7 +70,6 @@ module.exports = ({ projectName, cli }) => {
   try {
     // * Change directory so that Husky gets installed in the right .git folder
     process.chdir(rootPath)
-    console.log(`New directory: ${process.cwd()}`)
   } catch (err) {
     console.log(`${chalk.red('  Error: Could not enter project directory')} ${chalk.cyan(rootPath)}`)
     process.exit(1)

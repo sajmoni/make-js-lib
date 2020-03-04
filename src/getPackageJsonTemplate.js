@@ -20,7 +20,6 @@ module.exports = ({ appName, cli }) => {
       // TODO: Generate these files
       'build-test': cli ? './test-cli.sh' : './test-library.sh',
     },
-    main: 'dist/index.js',
     files: [
       'dist/',
     ],
