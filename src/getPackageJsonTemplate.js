@@ -17,8 +17,7 @@ module.exports = ({ appName, cli }) => {
       plop: 'plop',
       release: 'yarn clean && yarn audit && yarn build && np',
       clean: `rm -f ${appName}.tgz`,
-      // TODO: Generate these files
-      'build-test': cli ? './build-cli.sh' : './build-library.sh',
+      'build-test': './build-test.sh',
     },
     files: [
       'dist/',

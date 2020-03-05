@@ -34,7 +34,7 @@ const devDependencies = [
   // * --
   // * Other
   'parcel@2.0.0-alpha.3.2',
-  'np@6.1.0',
+  'np@6.2.0',
   'plop@2.5.4',
   // * --
 ]
@@ -93,7 +93,6 @@ module.exports = ({ projectName, cli }) => {
   fs.moveSync(
     path.join(rootPath, 'gitignore'),
     path.join(rootPath, '.gitignore'),
-    [],
   )
 
   const readmeTemplateString = fs.readFileSync(`${__dirname}/README.template.md`).toString()
@@ -113,7 +112,7 @@ module.exports = ({ projectName, cli }) => {
   const buildFile = fs.readFileSync(`${__dirname}/${buildFileName}`).toString()
 
   fs.writeFileSync(
-    path.join(rootPath, buildFileName),
+    path.join(rootPath, 'build-test.sh'),
     buildFile,
   )
 
