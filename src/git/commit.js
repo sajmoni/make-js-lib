@@ -7,17 +7,16 @@ module.exports = ({ rootPath }) => {
   try {
     execSync('git add -A', { stdio: 'ignore' })
 
-    execSync('git commit -m "Initial commit from make-js-lib"', {
-      stdio: 'ignore',
-    })
+    execSync('git commit -m "Initial commit from make-js-lib"')
 
     console.log()
     console.log('Created git commit.')
   } catch (e) {
     // TODO: Test this by adding to use-cases file
     console.log()
-    console.log(chalk.red('Could not create commit'), e.message)
+    console.log(chalk.red('  Could not create commit'), e.message)
 
+    // TODO: Should this be kept?
     // * It was not possible to commit.
     // * Maybe the commit author config is not set.
     // * Remove the Git files to avoid a half-done state.
