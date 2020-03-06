@@ -33,9 +33,6 @@ module.exports = ({ libraryName, cli }) => {
         'pre-push': 'yarn test',
       },
     },
-    'lint-staged': {
-      'src/**/*.{js,md}': ['yarn lint', 'yarn typecheck', 'yarn format'],
-    },
   }
 
   if (cli) {
