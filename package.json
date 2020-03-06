@@ -26,13 +26,6 @@
       "pre-commit": "lint-staged"
     }
   },
-  "lint-staged": {
-    "src/**/*.{js,md}": [
-      "yarn lint",
-      "yarn typecheck",
-      "yarn format"
-    ]
-  },
   "scripts": {
     "clean": "rm -rf ./example/test-lib && rm -f make-js-lib.tgz",
     "build-test": "./build-test.sh",

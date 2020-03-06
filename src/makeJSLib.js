@@ -1,4 +1,3 @@
-
 const fs = require('fs-extra')
 const chalk = require('chalk')
 const path = require('path')
@@ -12,10 +11,7 @@ const tryGitInit = require('./git/init')
 const tryGitCommit = require('./git/commit')
 
 // * Only used with --cli flag
-const dependencies = [
-  'yargs@15.1.0',
-  'chalk@3.0.0',
-]
+const dependencies = ['yargs@15.1.0', 'chalk@3.0.0']
 
 // TODO: Output dependencies installed
 const devDependencies = [
@@ -39,13 +35,16 @@ const devDependencies = [
   // * --
 ]
 
-module.exports = ({ projectName, cli }) => {
-  const rootPath = path.resolve(projectName)
-  const appName = path.basename(rootPath)
+module.exports = ({ libraryName, cli }) => {
+  const rootPath = path.resolve(libraryName)
 
   if (fs.existsSync(rootPath)) {
     console.log()
-    console.log(`${chalk.red('  Error: Project folder already exists')} ${chalk.cyan(rootPath)}`)
+    console.log(
+      `${chalk.red('  Error: Project folder already exists')} ${chalk.cyan(
+        rootPath,
+      )}`,
+    )
     console.log()
     process.exit(1)
   }
@@ -60,7 +59,7 @@ module.exports = ({ projectName, cli }) => {
 
   fs.mkdirSync(rootPath)
 
-  const packageJsonTemplate = getPackageJsonTemplate({ appName, cli })
+  const packageJsonTemplate = getPackageJsonTemplate({ libraryName, cli })
 
   fs.writeFileSync(
     path.join(rootPath, 'package.json'),
@@ -71,7 +70,11 @@ module.exports = ({ projectName, cli }) => {
     // * Change directory so that Husky gets installed in the right .git folder
     process.chdir(rootPath)
   } catch (err) {
-    console.log(`${chalk.red('  Error: Could not enter project directory')} ${chalk.cyan(rootPath)}`)
+    console.log(
+      `${chalk.red(
+        '  Error: Could not change to project directory',
+      )} ${chalk.cyan(rootPath)}`,
+    )
     process.exit(1)
   }
 
@@ -85,7 +88,9 @@ module.exports = ({ projectName, cli }) => {
   try {
     fs.copySync(templateDirectory, rootPath)
   } catch (error) {
-    console.log(`${chalk.red('  Error: Could not copy template files: ')} ${error}`)
+    console.log(
+      `${chalk.red('  Error: Could not copy template files: ')} ${error}`,
+    )
   }
 
   // * Rename gitignore to prevent npm from renaming it to .npmignore
@@ -95,12 +100,11 @@ module.exports = ({ projectName, cli }) => {
     path.join(rootPath, '.gitignore'),
   )
 
-  const readmeTemplateString = fs.readFileSync(`${__dirname}/README.template.md`).toString()
-  const readme = Mustache.render(readmeTemplateString, { libraryName: projectName })
-  fs.writeFileSync(
-    path.join(rootPath, 'README.md'),
-    readme,
-  )
+  const readmeTemplateString = fs
+    .readFileSync(`${__dirname}/README.template.md`)
+    .toString()
+  const readme = Mustache.render(readmeTemplateString, { libraryName })
+  fs.writeFileSync(path.join(rootPath, 'README.md'), readme)
 
   let buildFileName
   if (cli) {
@@ -109,12 +113,12 @@ module.exports = ({ projectName, cli }) => {
     buildFileName = 'build-library.sh'
   }
 
-  const buildFile = fs.readFileSync(`${__dirname}/${buildFileName}`).toString()
+  const buildFileString = fs
+    .readFileSync(`${__dirname}/${buildFileName}`)
+    .toString()
+  const buildFile = Mustache.render(buildFileString, { libraryName })
 
-  fs.writeFileSync(
-    path.join(rootPath, 'build-test.sh'),
-    buildFile,
-  )
+  fs.writeFileSync(path.join(rootPath, 'build-test.sh'), buildFile)
 
   console.log('  Installing packages.')
   console.log()
@@ -125,14 +129,17 @@ module.exports = ({ projectName, cli }) => {
   const prodArgs = defaultArgs.concat(dependencies)
 
   spawnCommand({ command, args: devArgs })
-    .then(() => (cli ? spawnCommand({ command, args: prodArgs }) : Promise.resolve()))
+    .then(() =>
+      cli ? spawnCommand({ command, args: prodArgs }) : Promise.resolve(),
+    )
     .then(() => {
       if (initializedGit) {
         tryGitCommit({ rootPath })
       }
 
-      displayDoneMessage({ name: projectName, rootPath })
-    }).catch((reason) => {
+      displayDoneMessage({ name: libraryName, rootPath })
+    })
+    .catch(reason => {
       // TODO: Redo this
       // TODO: Add test case for this?
       console.log()

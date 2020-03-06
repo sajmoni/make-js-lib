@@ -1,7 +1,6 @@
-
-module.exports = ({ appName, cli }) => {
+module.exports = ({ libraryName, cli }) => {
   const packageJsonTemplate = {
-    name: appName,
+    name: libraryName,
     license: 'MIT',
     version: '0.0.0',
     keywords: [],
@@ -11,17 +10,15 @@ module.exports = ({ appName, cli }) => {
       test: 'ava',
       lint: 'eslint src',
       // eslint-disable-next-line quotes
-      format: "prettier --write \"src/**/*.js\"",
+      format: 'prettier --write "src/**/*.js"',
       typecheck: 'tsc src/*.js',
       'check-all': 'yarn lint && yarn typecheck ',
       plop: 'plop',
       release: 'yarn clean && yarn audit && yarn build && np',
-      clean: `rm -f ${appName}.tgz`,
+      clean: `rm -f ${libraryName}.tgz`,
       'build-test': './build-test.sh',
     },
-    files: [
-      'dist/',
-    ],
+    files: ['dist/'],
     ava: {
       babel: true,
     },
@@ -37,11 +34,7 @@ module.exports = ({ appName, cli }) => {
       },
     },
     'lint-staged': {
-      'src/**/*.{js,md}': [
-        'yarn lint',
-        'yarn typecheck',
-        'yarn format',
-      ],
+      'src/**/*.{js,md}': ['yarn lint', 'yarn typecheck', 'yarn format'],
     },
   }
 
