@@ -16,6 +16,23 @@
     "url": "git+https://github.com/sajmoni/make-js-lib.git"
   },
   "bin": "dist/index.js",
+  "prettier": {
+    "trailingComma": "all",
+    "semi": false,
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,md}": [
+      "yarn lint",
+      "yarn typecheck",
+      "yarn format"
+    ]
+  },
   "scripts": {
     "clean": "rm -rf ./example/test-lib && rm -f make-js-lib.tgz",
     "build-test": "./build-test.sh",
@@ -23,7 +40,8 @@
     "build-test-all": "./build-test-all.sh",
     "lint": "eslint src",
     "build": "rm -rf dist && parcel build src/index.js --target node --no-cache",
-    "typecheck": "tsc --module commonjs --allowJs --checkJs --noEmit --target es2016 --resolveJsonModule src/*.js",
+    "typecheck": "tsc",
+    "format": "prettier --write \"src/**/*.js\"",
     "check-all": "yarn lint && yarn typecheck",
     "release": "yarn clean && yarn audit && yarn check-all && yarn build && np --no-tests"
   },
@@ -36,12 +54,14 @@
   },
   "devDependencies": {
     "eslint": "6.8.0",
-    "eslint-config-airbnb-base": "14.0.0",
-    "eslint-plugin-import": "2.20.1",
+    "eslint-config-prettier": "6.10.0",
+    "husky": "4.2.3",
+    "lint-staged": "10.0.8",
     "np": "6.2.0",
     "parcel-bundler": "1.12.4",
     "parcel-plugin-shebang": "1.2.8",
     "parcel-plugin-static-files-copy": "2.3.1",
+    "prettier": "1.19.1",
     "typescript": "3.8.3"
   }
 }
