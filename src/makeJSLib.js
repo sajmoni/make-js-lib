@@ -107,18 +107,27 @@ module.exports = ({ libraryName, cli }) => {
   fs.writeFileSync(path.join(rootPath, 'README.md'), readme)
 
   let buildFileName
+  let indexFileName
   if (cli) {
     buildFileName = 'build-cli.sh'
+    indexFileName = 'cli.js'
   } else {
     buildFileName = 'build-library.sh'
+    indexFileName = 'lib.js'
   }
 
   const buildFileString = fs
     .readFileSync(`${__dirname}/${buildFileName}`)
     .toString()
   const buildFile = Mustache.render(buildFileString, { libraryName })
-
   fs.writeFileSync(path.join(rootPath, 'build-test.sh'), buildFile)
+
+  const indexFileString = fs
+    .readFileSync(`${__dirname}/${indexFileName}`)
+    .toString()
+
+  const indexFile = Mustache.render(indexFileString, { libraryName })
+  fs.writeFileSync(path.join(`${rootPath}/src`, 'index.js'), indexFile)
 
   console.log('  Installing packages.')
   console.log()
