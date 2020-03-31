@@ -3,8 +3,3 @@ extends:
   - plugin:ava/recommended
 rules:
   no-use-before-define: off
-  import/prefer-default-export: off
-  arrow-body-style: off
-  semi:
-    - error
-    - never
