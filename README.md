@@ -99,7 +99,7 @@ Create a cli tool. Will add additional dependencies [`yargs`](https://github.com
 
 `--verbose`
 
-Display full output. Good for debugging.
+Display full output. Useful when debugging.
 
 ---
 
