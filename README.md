@@ -56,6 +56,7 @@ _Usage with `npx` ensures that you are always using the latest version_
  - Create a new folder called `<library-name>`
  - Copy all template files to that folder
  - Install the dependencies
+ - Make an initial commit
 
 ### Before you start
 
@@ -102,7 +103,7 @@ Display full output. Good for debugging.
 
 ---
 
-## What to do after script is run
+## What to do after the script is run
 
  - Add a license: https://help.github.com/en/github/building-a-strong-community/adding-a-license-to-a-repository
 

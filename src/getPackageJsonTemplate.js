@@ -5,7 +5,6 @@ module.exports = ({ libraryName, cli }) => {
     version: '0.0.0',
     keywords: [],
     scripts: {
-      start: 'parcel src/index.js --no-autoinstall --no-cache',
       build: 'rm -rf dist && parcel build src/index.js --no-cache',
       test: 'ava',
       lint: 'eslint src',
