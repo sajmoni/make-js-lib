@@ -3,6 +3,7 @@ module.exports = ({ libraryName, cli }) => {
     name: libraryName,
     license: 'MIT',
     version: '0.0.0',
+    description: '',
     keywords: [],
     scripts: {
       build: 'rm -rf dist && parcel build src/index.js --no-cache',
@@ -13,9 +14,12 @@ module.exports = ({ libraryName, cli }) => {
       plop: 'plop',
       release: 'yarn clean && yarn audit && yarn build && np',
       clean: `rm -f ${libraryName}.tgz`,
-      'build-test': './build-test.sh',
+      go: './build-test.sh',
     },
     files: ['dist/'],
+    directories: {
+      example: 'example',
+    },
     ava: {
       babel: true,
     },

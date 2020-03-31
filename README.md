@@ -151,7 +151,7 @@ Command | Description
 `yarn tsc` | Run a type check with `typescript`
 `yarn lint` | Run `eslint`
 `yarn clean` | Remove build artefact (`.tgz` file)
-`yarn build-test` | Builds and installs to `example` folder
+`yarn go` | Builds and installs to `example` folder
 
 ### Workflow
 

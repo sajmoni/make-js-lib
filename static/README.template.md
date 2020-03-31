@@ -59,12 +59,12 @@ Command | Description
 `yarn tsc` | Run a type check with `typescript`
 `yarn lint` | Lint with `eslint`
 `yarn clean` | Remove build artefact (`.tgz` file)
-`yarn build-test` | Builds, packs and installs to `example` folder
+`yarn go` | Builds, packs and installs to `example` folder
 
 ### Workflow
 
 1. Make changes
-2. `yarn build-test` and verify that your changes work.
+2. `yarn go` and verify that your changes work.
 3. Commit to `master` or make `PR`
 
 #### Release

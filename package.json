@@ -28,7 +28,7 @@
   },
   "scripts": {
     "clean": "rm -rf ./example/test-lib && rm -f make-js-lib.tgz",
-    "build-test": "./build-test.sh",
+    "go": "./build-test.sh",
     "build-cli": "./build-cli.sh",
     "build-test-all": "./build-test-all.sh",
     "lint": "eslint src",
