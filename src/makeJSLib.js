@@ -17,21 +17,21 @@ const dependencies = ['yargs@15.1.0', 'chalk@3.0.0']
 const devDependencies = [
   // * Code quality
   'eslint@6.8.0',
-  'eslint-config-prettier@6.10.0',
-  'typescript@3.8.2',
+  'eslint-config-prettier@6.10.1',
+  'typescript@3.8.3',
   'husky@4.2.3',
-  'lint-staged@10.0.7',
-  'prettier@1.19.1',
+  'lint-staged@10.1.0',
+  'prettier@2.0.2',
   // * --
   // * Testing
   '@ava/babel@1.0.1',
-  'ava@3.4.0',
+  'ava@3.5.2',
   'eslint-plugin-ava@10.2.0',
   // * --
   // * Other
   'parcel@2.0.0-alpha.3.2',
   'np@6.2.0',
-  'plop@2.5.4',
+  'plop@2.6.0',
   // * --
 ]
 
