@@ -148,7 +148,7 @@ Command | Description
 ------- | -----------
 `yarn build` | Generate files in the `dist` folder
 `yarn release` | Start the process to release a new version
-`yarn typecheck` | Run a type check with `typescript`
+`yarn tsc` | Run a type check with `typescript`
 `yarn lint` | Run `eslint`
 `yarn clean` | Remove build artefact (`.tgz` file)
 `yarn build-test` | Builds and installs to `example` folder
