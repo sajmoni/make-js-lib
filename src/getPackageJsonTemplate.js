@@ -10,8 +10,6 @@ module.exports = ({ libraryName, cli }) => {
       lint: 'eslint src',
       // eslint-disable-next-line quotes
       format: 'prettier --write "src/**/*.js"',
-      typecheck: 'tsc src/*.js',
-      'check-all': 'yarn lint && yarn typecheck ',
       plop: 'plop',
       release: 'yarn clean && yarn audit && yarn build && np',
       clean: `rm -f ${libraryName}.tgz`,
