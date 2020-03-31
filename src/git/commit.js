@@ -7,7 +7,7 @@ module.exports = ({ rootPath }) => {
   try {
     execSync('git add -A', { stdio: 'ignore' })
 
-    execSync('git commit -m "Initial commit from make-js-lib"')
+    execSync('git commit --no-verify -m "Initial commit from make-js-lib"')
 
     console.log()
     console.log('Created git commit.')
