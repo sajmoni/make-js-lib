@@ -13,7 +13,7 @@ const program = new commander.Command(packageJson.name)
   .version(packageJson.version)
   .arguments('<library-name>')
   .usage(`${chalk.green('<library-name>')} [options]`)
-  .action(name => {
+  .action((name) => {
     libraryName = name
   })
   .on('--help', () => {

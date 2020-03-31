@@ -148,7 +148,7 @@ module.exports = ({ libraryName, cli }) => {
 
       displayDoneMessage({ name: libraryName, rootPath })
     })
-    .catch(reason => {
+    .catch((reason) => {
       // TODO: Redo this
       // TODO: Add test case for this?
       console.log()
