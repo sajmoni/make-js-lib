@@ -5,12 +5,12 @@ const chalk = require('chalk')
 
 module.exports = ({ rootPath }) => {
   try {
-    execSync('git add -A', { stdio: 'ignore' })
+    execSync('git add -A')
 
     execSync('git commit --no-verify -m "Initial commit from make-js-lib"')
 
     console.log()
-    console.log('Created git commit.')
+    console.log('  Created git commit.')
   } catch (e) {
     // TODO: Test this by adding to use-cases file
     console.log()
