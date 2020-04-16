@@ -1,4 +1,4 @@
-module.exports = ({ libraryName, cli }) => {
+module.exports = ({ libraryName }) => {
   const packageJsonTemplate = {
     name: libraryName,
     license: 'MIT',
@@ -16,6 +16,7 @@ module.exports = ({ libraryName, cli }) => {
       clean: `rm -f ${libraryName}.tgz`,
       go: './build-test.sh',
     },
+    main: 'dist/index.js',
     files: ['dist/'],
     directories: {
       example: 'example',
@@ -34,12 +35,6 @@ module.exports = ({ libraryName, cli }) => {
         'pre-push': 'yarn test',
       },
     },
-  }
-
-  if (cli) {
-    packageJsonTemplate.bin = 'dist/index.js'
-  } else {
-    packageJsonTemplate.main = 'dist/index.js'
   }
 
   return packageJsonTemplate

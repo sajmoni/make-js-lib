@@ -21,7 +21,6 @@ const program = new commander.Command(packageJson.name)
     console.log(`    Only ${chalk.green('<library-name>')} is required.`)
     console.log()
   })
-  .option('--cli', 'create CLI tool')
   .parse(process.argv)
 
 if (typeof libraryName === 'undefined') {
@@ -35,4 +34,4 @@ console.log(`  ${packageJson.name}`)
 console.log()
 console.log(`  version: ${packageJson.version}`)
 
-makeJSLib({ libraryName, cli: program.cli })
+makeJSLib({ libraryName })

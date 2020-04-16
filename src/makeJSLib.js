@@ -10,9 +10,6 @@ const displayDoneMessage = require('./message/done')
 const tryGitInit = require('./git/init')
 const tryGitCommit = require('./git/commit')
 
-// * Only used with --cli flag
-const dependencies = ['yargs@15.1.0', 'chalk@3.0.0']
-
 // TODO: Output dependencies installed
 const devDependencies = [
   // * Code quality
@@ -35,7 +32,7 @@ const devDependencies = [
   // * --
 ]
 
-module.exports = ({ libraryName, cli }) => {
+module.exports = ({ libraryName }) => {
   const rootPath = path.resolve(libraryName)
 
   if (fs.existsSync(rootPath)) {
@@ -50,16 +47,12 @@ module.exports = ({ libraryName, cli }) => {
   }
 
   console.log()
-  if (cli) {
-    console.log(`  Creating a CLI tool in ${chalk.green(rootPath)}`)
-  } else {
-    console.log(`  Creating a library in ${chalk.green(rootPath)}`)
-  }
+  console.log(`  Creating a library in ${chalk.green(rootPath)}`)
   console.log()
 
   fs.mkdirSync(rootPath)
 
-  const packageJsonTemplate = getPackageJsonTemplate({ libraryName, cli })
+  const packageJsonTemplate = getPackageJsonTemplate({ libraryName })
 
   fs.writeFileSync(
     path.join(rootPath, 'package.json'),
@@ -106,15 +99,8 @@ module.exports = ({ libraryName, cli }) => {
   const readme = Mustache.render(readmeTemplateString, { libraryName })
   fs.writeFileSync(path.join(rootPath, 'README.md'), readme)
 
-  let buildFileName
-  let indexFileName
-  if (cli) {
-    buildFileName = 'build-cli.sh'
-    indexFileName = 'cli.js'
-  } else {
-    buildFileName = 'build-library.sh'
-    indexFileName = 'lib.js'
-  }
+  const buildFileName = 'build-library.sh'
+  const indexFileName = 'lib.js'
 
   const buildFileString = fs
     .readFileSync(`${__dirname}/${buildFileName}`)
@@ -135,12 +121,8 @@ module.exports = ({ libraryName, cli }) => {
   const command = 'yarn'
   const defaultArgs = ['add', '--exact']
   const devArgs = defaultArgs.concat('--dev').concat(devDependencies)
-  const prodArgs = defaultArgs.concat(dependencies)
 
   spawnCommand({ command, args: devArgs })
-    .then(() =>
-      cli ? spawnCommand({ command, args: prodArgs }) : Promise.resolve(),
-    )
     .then(() => {
       if (initializedGit) {
         tryGitCommit({ rootPath })
