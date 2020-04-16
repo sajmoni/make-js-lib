@@ -11,10 +11,6 @@
   <img src="https://badgen.net/github/last-commit/sajmoni/make-js-lib?icon=github" />
 </div>
 
-`make-js-lib` can be used to generate a JavaScript library or a CLI tool with the `--cli` flag.
-
----
-
 ## :sparkles: Features
 
  - :zap: [`parcel`](https://github.com/parcel-bundler/parcel) - Very fast, zero config, module bundler
@@ -34,12 +30,6 @@
  - :recycle: [`plop`](https://github.com/plopjs/plop) - Micro-generator framework
 
  - Workflow to test your library locally before publishing
-
-Command line tools also include:
-
- - :boat: [`yargs`](https://github.com/yargs/yargs) - Build cli tools
-
- - :crayon: [`chalk`](https://github.com/chalk/chalk) - Colorize output
 
 ---
 
@@ -93,11 +83,7 @@ my-lib
 
 ### Options
 
-`--cli`
-
-Create a cli tool. Will add additional dependencies [`yargs`](https://github.com/yargs/yargs) and [`chalk`](https://github.com/chalk/chalk)
-
-`--verbose`
+`--verbose` (TODO)
 
 Display full output. Useful when debugging.
 
@@ -144,14 +130,14 @@ https://help.github.com/en/github/building-a-strong-community/about-issue-and-pu
 
 ### Commands
 
-Command | Description
-------- | -----------
-`yarn build` | Generate files in the `dist` folder
-`yarn release` | Start the process to release a new version
-`yarn tsc` | Run a type check with `typescript`
-`yarn lint` | Run `eslint`
-`yarn clean` | Remove build artefact (`.tgz` file)
-`yarn go` | Builds and installs to `example` folder
+| Command        | Description                                |
+| -------------- | ------------------------------------------ |
+| `yarn build`   | Generate files in the `dist` folder        |
+| `yarn release` | Start the process to release a new version |
+| `yarn tsc`     | Run a type check with `typescript`         |
+| `yarn lint`    | Run `eslint`                               |
+| `yarn clean`   | Remove build artefact (`.tgz` file)        |
+| `yarn go`      | Builds and installs to `example` folder    |
 
 ### Workflow
 
