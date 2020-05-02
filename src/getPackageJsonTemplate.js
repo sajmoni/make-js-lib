@@ -6,17 +6,17 @@ module.exports = ({ libraryName }) => {
     description: '',
     keywords: [],
     scripts: {
-      build: 'rm -rf dist && parcel build src/index.js --no-cache',
+      build: 'rm -rf dist && rollup --config rollup.config.js',
       test: 'ava',
-      lint: 'eslint src',
-      // eslint-disable-next-line quotes
-      format: 'prettier --write "src/**/*.js"',
       plop: 'plop',
-      release: 'yarn clean && yarn audit && yarn build && np',
+      release: 'np',
+      'release:prepare':
+        'yarn clean && yarn audit && yarn build && np --preview',
       clean: `rm -f ${libraryName}.tgz`,
+      qa: 'yarn tsc && yarn xo --fix',
       go: './build-test.sh',
     },
-    main: 'dist/index.js',
+    main: 'dist/bundle.js',
     files: ['dist/'],
     directories: {
       example: 'example',
@@ -28,6 +28,17 @@ module.exports = ({ libraryName }) => {
       trailingComma: 'all',
       semi: false,
       singleQuote: true,
+      useTabs: false,
+      bracketSpacing: true,
+    },
+    xo: {
+      prettier: true,
+      env: ['es2020', 'node'],
+      rules: {
+        'unicorn/filename-case': 'off',
+        'capitalized-comments': 'off',
+        'dot-notation': 'off',
+      },
     },
     husky: {
       hooks: {

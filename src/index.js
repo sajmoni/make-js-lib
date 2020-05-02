@@ -1,7 +1,6 @@
-#!/usr/bin/env node
-
 const commander = require('commander')
 const chalk = require('chalk')
+const CFonts = require('cfonts')
 
 const packageJson = require('../package.json')
 const displayNoLibraryNameMessage = require('./message/noLibraryName')
@@ -28,10 +27,13 @@ if (typeof libraryName === 'undefined') {
   process.exit(1)
 }
 
-// TODO: Make this output look nicer
 console.log()
-console.log(`  ${packageJson.name}`)
+CFonts.say(`${packageJson.name}`, {
+  font: 'tiny',
+  colors: ['#d43722'],
+  space: false,
+})
+console.log(` v${packageJson.version}`)
 console.log()
-console.log(`  version: ${packageJson.version}`)
 
 makeJSLib({ libraryName })

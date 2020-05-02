@@ -15,11 +15,26 @@
     "type": "git",
     "url": "git+https://github.com/sajmoni/make-js-lib.git"
   },
-  "bin": "dist/index.js",
+  "bin": "dist/bundle.js",
   "prettier": {
     "trailingComma": "all",
     "semi": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "useTabs": false,
+    "bracketSpacing": true
+  },
+  "xo": {
+    "prettier": true,
+    "env": [
+      "es2020",
+      "node"
+    ],
+    "rules": {
+      "unicorn/no-process-exit": "off",
+      "unicorn/filename-case": "off",
+      "capitalized-comments": "off",
+      "dot-notation": "off"
+    }
   },
   "husky": {
     "hooks": {
@@ -29,29 +44,30 @@
   "scripts": {
     "clean": "rm -rf ./example/test-lib && rm -f make-js-lib.tgz",
     "go": "./build-test.sh",
-    "build-test-all": "./build-test-all.sh",
-    "lint": "eslint src",
-    "build": "rm -rf dist && parcel build src/index.js --target node --no-cache",
-    "format": "prettier --write \"src/**/*.js\"",
-    "release": "yarn clean && yarn audit && yarn check-all && yarn build && np --no-tests"
+    "all": "./build-test-all.sh",
+    "build": "rm -rf dist && rollup --config rollup.config.js",
+    "release": "np --no-tests",
+    "release:prepare": "yarn clean && yarn audit && yarn build && np --preview --no-tests",
+    "qa": "yarn tsc && yarn xo --fix"
   },
   "dependencies": {
-    "chalk": "3.0.0",
-    "commander": "5.0.0",
-    "cross-spawn": "7.0.1",
+    "cfonts": "2.8.1",
+    "chalk": "4.0.0",
+    "commander": "5.1.0",
+    "execa": "4.0.0",
     "fs-extra": "9.0.0",
+    "listr": "0.14.3",
     "mustache": "4.0.1"
   },
   "devDependencies": {
-    "eslint": "6.8.0",
-    "eslint-config-prettier": "6.10.1",
-    "husky": "4.2.3",
-    "lint-staged": "10.1.0",
-    "np": "6.2.0",
-    "parcel-bundler": "1.12.4",
-    "parcel-plugin-shebang": "1.2.8",
-    "parcel-plugin-static-files-copy": "2.3.1",
-    "prettier": "2.0.2",
-    "typescript": "3.8.3"
+    "@rollup/plugin-commonjs": "11.1.0",
+    "@rollup/plugin-json": "4.0.3",
+    "husky": "4.2.5",
+    "lint-staged": "10.2.2",
+    "np": "6.2.3",
+    "rollup": "2.7.6",
+    "rollup-plugin-copy": "3.3.0",
+    "typescript": "3.8.3",
+    "xo": "0.30.0"
   }
 }

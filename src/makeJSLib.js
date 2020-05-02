@@ -3,30 +3,26 @@ const chalk = require('chalk')
 const path = require('path')
 const os = require('os')
 const Mustache = require('mustache')
+const execa = require('execa')
+const Listr = require('listr')
 
-const spawnCommand = require('./spawnCommand')
 const getPackageJsonTemplate = require('./getPackageJsonTemplate.js')
 const displayDoneMessage = require('./message/done')
-const tryGitInit = require('./git/init')
-const tryGitCommit = require('./git/commit')
 
-// TODO: Output dependencies installed
 const devDependencies = [
   // * Code quality
-  'eslint@6.8.0',
-  'eslint-config-prettier@6.10.1',
+  'xo@0.29.1',
   'typescript@3.8.3',
   'husky@4.2.3',
   'lint-staged@10.1.0',
-  'prettier@2.0.2',
   // * --
   // * Testing
   '@ava/babel@1.0.1',
   'ava@3.5.2',
-  'eslint-plugin-ava@10.2.0',
   // * --
   // * Other
-  'parcel@2.0.0-alpha.3.2',
+  'rollup@2.7.2',
+  '@rollup/plugin-commonjs@11.1.0',
   'np@6.2.0',
   'plop@2.6.0',
   // * --
@@ -35,107 +31,163 @@ const devDependencies = [
 module.exports = ({ libraryName }) => {
   const rootPath = path.resolve(libraryName)
 
-  if (fs.existsSync(rootPath)) {
-    console.log()
-    console.log(
-      `${chalk.red('  Error: Project folder already exists')} ${chalk.cyan(
-        rootPath,
-      )}`,
-    )
-    console.log()
-    process.exit(1)
-  }
+  let initializedGit
 
-  console.log()
-  console.log(`  Creating a library in ${chalk.green(rootPath)}`)
+  console.log(` Creating a JS library in ${chalk.green(rootPath)}`)
   console.log()
 
-  fs.mkdirSync(rootPath)
+  const tasks = new Listr([
+    {
+      title: 'Create project folder',
+      task: () => {
+        if (fs.existsSync(rootPath)) {
+          throw new Error('Project folder already exists')
+        }
 
-  const packageJsonTemplate = getPackageJsonTemplate({ libraryName })
+        fs.mkdirSync(rootPath)
+        const packageJsonTemplate = getPackageJsonTemplate({ libraryName })
 
-  fs.writeFileSync(
-    path.join(rootPath, 'package.json'),
-    JSON.stringify(packageJsonTemplate, null, 2) + os.EOL,
-  )
+        fs.writeFileSync(
+          path.join(rootPath, 'package.json'),
+          JSON.stringify(packageJsonTemplate, null, 2) + os.EOL,
+        )
+        return true
+      },
+    },
+    {
+      title: 'Git init',
+      exitOnError: false,
+      task: () => {
+        try {
+          // * Change directory so that Husky gets installed in the right .git folder
+          process.chdir(rootPath)
+        } catch (_) {
+          throw new Error(`Could not change to project directory: ${rootPath}`)
+        }
 
-  try {
-    // * Change directory so that Husky gets installed in the right .git folder
-    process.chdir(rootPath)
-  } catch (err) {
-    console.log(
-      `${chalk.red(
-        '  Error: Could not change to project directory',
-      )} ${chalk.cyan(rootPath)}`,
-    )
-    process.exit(1)
-  }
+        try {
+          execa.sync('git', ['init'])
 
-  const initializedGit = tryGitInit()
+          initializedGit = true
+          return true
+        } catch (error) {
+          throw new Error(`Git repo not initialized ${error}`)
+        }
+      },
+    },
+    {
+      title: 'Copy template files',
+      task: () => {
+        const templateDirectory = `${__dirname}/template/folder`
 
-  console.log()
-  console.log('  Copying files from template.')
+        try {
+          fs.copySync(templateDirectory, rootPath)
+        } catch (error) {
+          throw new Error(`Could not copy template files: ${error}`)
+        }
 
-  const templateDirectory = `${__dirname}/template`
+        // * Rename gitignore to prevent npm from renaming it to .npmignore
+        // * See: https://github.com/npm/npm/issues/1862
+        fs.copySync(
+          `${__dirname}/template/gitignore`,
+          path.join(rootPath, '.gitignore'),
+        )
 
-  try {
-    fs.copySync(templateDirectory, rootPath)
-  } catch (error) {
-    console.log(
-      `${chalk.red('  Error: Could not copy template files: ')} ${error}`,
-    )
-  }
+        const readmeTemplateString = fs
+          .readFileSync(`${__dirname}/template/README.template.md`)
+          .toString()
+        const readme = Mustache.render(readmeTemplateString, { libraryName })
+        fs.writeFileSync(path.join(rootPath, 'README.md'), readme)
 
-  // * Rename gitignore to prevent npm from renaming it to .npmignore
-  // * See: https://github.com/npm/npm/issues/1862
-  fs.moveSync(
-    path.join(rootPath, 'gitignore'),
-    path.join(rootPath, '.gitignore'),
-  )
+        const buildFileName = 'build-test.sh'
 
-  const readmeTemplateString = fs
-    .readFileSync(`${__dirname}/README.template.md`)
-    .toString()
-  const readme = Mustache.render(readmeTemplateString, { libraryName })
-  fs.writeFileSync(path.join(rootPath, 'README.md'), readme)
+        const buildFileString = fs
+          .readFileSync(`${__dirname}/template/${buildFileName}`)
+          .toString()
+        const buildFile = Mustache.render(buildFileString, { libraryName })
+        const buildPath = path.join(rootPath, 'build-test.sh')
+        fs.writeFileSync(buildPath, buildFile)
+        fs.chmodSync(buildPath, '755')
 
-  const buildFileName = 'build-library.sh'
-  const indexFileName = 'lib.js'
+        const exampleProjectPackageJson = {
+          name: 'example',
+          private: true,
+          scripts: {
+            start: 'node .',
+            refresh: 'yarn cache clean && yarn install --force --no-lockfile',
+          },
+          dependencies: {
+            [libraryName]: `file:../${libraryName}.tgz`,
+          },
+        }
 
-  const buildFileString = fs
-    .readFileSync(`${__dirname}/${buildFileName}`)
-    .toString()
-  const buildFile = Mustache.render(buildFileString, { libraryName })
-  fs.writeFileSync(path.join(rootPath, 'build-test.sh'), buildFile)
+        fs.writeFileSync(
+          path.join(rootPath, 'example/package.json'),
+          JSON.stringify(exampleProjectPackageJson, null, 2) + os.EOL,
+        )
 
-  const indexFileString = fs
-    .readFileSync(`${__dirname}/${indexFileName}`)
-    .toString()
+        const exampleIndexTemplateString = fs
+          .readFileSync(`${__dirname}/template/example-index.template.js`)
+          .toString()
+        const exampleIndex = Mustache.render(exampleIndexTemplateString, {
+          libraryName,
+        })
+        fs.writeFileSync(path.join(rootPath, 'example/index.js'), exampleIndex)
 
-  const indexFile = Mustache.render(indexFileString, { libraryName })
-  fs.writeFileSync(path.join(`${rootPath}/src`, 'index.js'), indexFile)
+        return true
+      },
+    },
+    {
+      title: 'Install dependencies',
+      task: () => {
+        const command = 'yarn'
+        const defaultArgs = ['add', '--exact']
+        const devArgs = defaultArgs.concat('--dev').concat(devDependencies)
 
-  console.log('  Installing packages.')
-  console.log()
+        return execa(command, devArgs).catch((error) => {
+          throw new Error(`Could not install dependencies, ${error}`)
+        })
+      },
+    },
+    {
+      title: 'Git commit',
+      exitOnError: false,
+      skip: () => !initializedGit,
+      task: () => {
+        try {
+          execa.sync('git', ['add', '-A'])
 
-  const command = 'yarn'
-  const defaultArgs = ['add', '--exact']
-  const devArgs = defaultArgs.concat('--dev').concat(devDependencies)
+          execa.sync('git', [
+            'commit',
+            '--no-verify',
+            '-m',
+            'Initialize project using make-js-lib',
+          ])
+          return true
+        } catch (error) {
+          // * It was not possible to commit.
+          // * Maybe the commit author config is not set.
+          // * Remove the Git files to avoid a half-done state.
+          try {
+            fs.removeSync(path.join(rootPath, '.git'))
+            throw new Error(`Could not create commit ${error}`)
+          } catch (_) {
+            throw new Error(`Could not create commit ${error}`)
+          }
+        }
+      },
+    },
+  ])
 
-  spawnCommand({ command, args: devArgs })
+  tasks
+    .run()
     .then(() => {
-      if (initializedGit) {
-        tryGitCommit({ rootPath })
-      }
-
       displayDoneMessage({ name: libraryName, rootPath })
     })
-    .catch((reason) => {
-      // TODO: Redo this
-      // TODO: Add test case for this?
+    .catch((error) => {
       console.log()
-      console.log(chalk.red('  Aborting installation.'))
-      console.log(`  Command failed: ${chalk.cyan(reason.command)}`)
+      console.error(chalk.red(error))
       console.log()
+      process.exit(1)
     })
 }

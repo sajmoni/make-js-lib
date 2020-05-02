@@ -1,7 +1,0 @@
-extends: prettier
-rules:
-  no-use-before-define: off
-  no-console: off
-env:
-  es2017: true
-  node: true
