@@ -11,19 +11,19 @@ const displayDoneMessage = require('./message/done')
 
 const devDependencies = [
   // * Code quality
-  'xo@0.29.1',
+  'xo@0.30.0',
   'typescript@3.8.3',
-  'husky@4.2.3',
-  'lint-staged@10.1.0',
+  'husky@4.2.5',
+  'lint-staged@10.2.2',
   // * --
   // * Testing
   '@ava/babel@1.0.1',
-  'ava@3.5.2',
+  'ava@3.8.1',
   // * --
   // * Other
-  'rollup@2.7.2',
+  'rollup@2.7.6',
   '@rollup/plugin-commonjs@11.1.0',
-  'np@6.2.0',
+  'np@6.2.3',
   'plop@2.6.0',
   // * --
 ]
