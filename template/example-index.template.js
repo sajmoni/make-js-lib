@@ -1,3 +1,3 @@
-const { getGreeting } = require('{{ libraryName }}')
+const { sayHello } = require('{{ libraryName }}')
 
-console.log(getGreeting())
+console.log(sayHello())

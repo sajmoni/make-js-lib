@@ -1,5 +1,6 @@
 import test from 'ava'
+import { sayHello } from '.'
 
-test('Example test', (t) => {
-  t.is(true, true)
+test('sayHello', (t) => {
+  t.is(sayHello(), 'Hello world!')
 })
