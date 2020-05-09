@@ -22,7 +22,7 @@ module.exports = ({ libraryName }) => {
       example: 'example',
     },
     ava: {
-      babel: true,
+      require: ['./script/setupTests.js'],
     },
     prettier: {
       trailingComma: 'all',

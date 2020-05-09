@@ -17,8 +17,11 @@ const devDependencies = [
   'lint-staged@10.2.2',
   // * --
   // * Testing
-  '@ava/babel@1.0.1',
   'ava@3.8.1',
+  '@babel/register@7.9.0',
+  '@babel/core@7.9.6',
+  '@babel/preset-env@7.9.6',
+  '@babel/preset-typescript@7.9.0',
   // * --
   // * Other
   'rollup@2.7.6',
