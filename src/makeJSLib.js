@@ -31,8 +31,6 @@ const devDependencies = [
 module.exports = ({ libraryName }) => {
   const rootPath = path.resolve(libraryName)
 
-  let initializedGit
-
   console.log(` Creating a JS library in ${chalk.green(rootPath)}`)
   console.log()
 
@@ -56,7 +54,6 @@ module.exports = ({ libraryName }) => {
     },
     {
       title: 'Git init',
-      exitOnError: false,
       task: () => {
         try {
           // * Change directory so that Husky gets installed in the right .git folder
@@ -68,7 +65,6 @@ module.exports = ({ libraryName }) => {
         try {
           execa.sync('git', ['init'])
 
-          initializedGit = true
           return true
         } catch (error) {
           throw new Error(`Git repo not initialized ${error}`)
@@ -151,8 +147,6 @@ module.exports = ({ libraryName }) => {
     },
     {
       title: 'Git commit',
-      exitOnError: false,
-      skip: () => !initializedGit,
       task: () => {
         try {
           execa.sync('git', ['add', '-A'])
