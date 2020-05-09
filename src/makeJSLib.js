@@ -25,7 +25,7 @@ const devDependencies = [
   // * --
   // * Other
   'rollup@2.7.6',
-  '@rollup/plugin-commonjs@11.1.0',
+  '@rollup/plugin-typescript@4.1.1',
   'np@6.2.3',
   'plop@2.6.0',
   // * --

@@ -1,12 +1,12 @@
-import commonjs from '@rollup/plugin-commonjs'
+import typescript from '@rollup/plugin-typescript'
 
 const OUTPUT_FOLDER = 'dist'
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   output: {
-    file: `${OUTPUT_FOLDER}/bundle.js`,
+    dir: OUTPUT_FOLDER,
     format: 'cjs',
   },
-  external: ['yargs', 'chalk'],
-  plugins: [commonjs()],
+  external: [],
+  plugins: [typescript()],
 }

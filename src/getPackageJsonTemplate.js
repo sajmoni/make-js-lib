@@ -16,7 +16,7 @@ module.exports = ({ libraryName }) => {
       qa: 'yarn tsc && yarn xo --fix',
       go: './build-test.sh',
     },
-    main: 'dist/bundle.js',
+    main: 'dist/index.js',
     files: ['dist/'],
     directories: {
       example: 'example',
