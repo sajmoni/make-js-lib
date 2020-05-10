@@ -1,4 +1,4 @@
 module.exports = {
-  '**/*.js?(x)': () => 'tsc',
-  'src/**/*.{js,md}': ['xo --fix'],
+  '**/*.{js,ts}?(x)': () => 'tsc',
+  'src/**/*.{js,ts,md}': ['xo --fix'],
 }
