@@ -7,6 +7,7 @@ const execa = require('execa')
 const Listr = require('listr')
 
 const getPackageJsonTemplate = require('./getPackageJsonTemplate.js')
+const createFileFromTemplate = require('./createFileFromTemplate.js')
 const displayDoneMessage = require('./message/done')
 
 const devDependencies = [
@@ -112,11 +113,12 @@ module.exports = ({ libraryName }) => {
           name: 'example',
           private: true,
           scripts: {
-            start: 'node .',
+            test: 'ava',
             refresh: 'yarn cache clean && yarn install --force --no-lockfile',
           },
           dependencies: {
             [libraryName]: `file:../${libraryName}.tgz`,
+            ava: '3.8.2',
           },
         }
 
@@ -125,13 +127,11 @@ module.exports = ({ libraryName }) => {
           JSON.stringify(exampleProjectPackageJson, null, 2) + os.EOL,
         )
 
-        const exampleIndexTemplateString = fs
-          .readFileSync(`${__dirname}/template/example-index.template.js`)
-          .toString()
-        const exampleIndex = Mustache.render(exampleIndexTemplateString, {
-          libraryName,
+        createFileFromTemplate({
+          source: 'example-index.test.template.js',
+          destination: 'example/index.test.js',
+          options: { libraryName },
         })
-        fs.writeFileSync(path.join(rootPath, 'example/index.js'), exampleIndex)
 
         return true
       },
