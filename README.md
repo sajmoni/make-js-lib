@@ -137,5 +137,5 @@ https://help.github.com/en/github/building-a-strong-community/about-issue-and-pu
 ### Workflow
 
 1. Make changes
-2. `yarn build-test` and verify that your changes work
+2. `yarn go` and verify that your changes work
 3. Push `master` or make a `PR`

@@ -46,8 +46,7 @@
     "go": "./build-test.sh",
     "all": "./build-test-all.sh",
     "build": "rm -rf dist && rollup --config rollup.config.js",
-    "release": "np --no-tests",
-    "release:prepare": "yarn clean && yarn audit && yarn build && np --preview --no-tests",
+    "release": "yarn clean && yarn audit && yarn build && np --no-tests",
     "qa": "yarn tsc && yarn xo --fix"
   },
   "dependencies": {
