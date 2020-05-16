@@ -13,7 +13,7 @@ module.exports = ({ libraryName }) => {
       'release:prepare':
         'yarn clean && yarn audit && yarn build && np --preview',
       clean: `rm -f ${libraryName}.tgz`,
-      qa: 'yarn tsc && yarn xo --fix',
+      qa: 'tsc && xo --fix',
       go: './build-test.sh',
     },
     main: 'dist/index.js',

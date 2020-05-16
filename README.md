@@ -48,11 +48,15 @@ _Usage with `npx` ensures that you are always using the latest version_
 
 ### Before you start
 
-If you intend to publish this to `npm`, then you should check the availability of your name with [`npm-name-cli`](https://github.com/sindresorhus/npm-name-cli): `npx npm-name-cli <library-name>`
+If you intend to publish this to `npm`, then you should check the availability of your name with [`npm-name-cli`](https://github.com/sindresorhus/npm-name-cli):
+
+```sh
+npx npm-name-cli <library-name>
+```
 
 ### Example usage
 
-```
+```sh
 npx make-js-lib my-lib
 ```
 
