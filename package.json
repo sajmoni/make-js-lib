@@ -50,10 +50,10 @@
     "qa": "yarn tsc && yarn xo --fix"
   },
   "dependencies": {
-    "cfonts": "2.8.1",
+    "cfonts": "2.8.2",
     "chalk": "4.0.0",
     "commander": "5.1.0",
-    "execa": "4.0.0",
+    "execa": "4.0.1",
     "fs-extra": "9.0.0",
     "listr": "0.14.3",
     "mustache": "4.0.1"
@@ -64,9 +64,9 @@
     "husky": "4.2.5",
     "lint-staged": "10.2.2",
     "np": "6.2.3",
-    "rollup": "2.7.6",
+    "rollup": "2.10.2",
     "rollup-plugin-copy": "3.3.0",
-    "typescript": "3.8.3",
+    "typescript": "3.9.2",
     "xo": "0.30.0"
   }
 }
