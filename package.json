@@ -42,6 +42,7 @@
     }
   },
   "scripts": {
+    "version": "yarn build",
     "clean": "rm -rf ./example/test-lib && rm -f make-js-lib.tgz",
     "go": "./build-test.sh",
     "all": "./build-test-all.sh",

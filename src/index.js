@@ -17,7 +17,7 @@ const program = new commander.Command(packageJson.name)
   })
   .on('--help', () => {
     console.log()
-    console.log(`    Only ${chalk.green('<library-name>')} is required.`)
+    console.log(`   Only ${chalk.green('<library-name>')} is required.`)
     console.log()
   })
   .parse(process.argv)
