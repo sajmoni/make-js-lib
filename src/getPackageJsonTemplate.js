@@ -9,9 +9,7 @@ module.exports = ({ libraryName }) => {
       build: 'rm -rf dist && rollup --config rollup.config.js',
       test: 'ava',
       plop: 'plop',
-      release: 'np',
-      'release:prepare':
-        'yarn clean && yarn audit && yarn build && np --preview',
+      release: 'yarn clean && yarn audit && yarn build && np --no-tests',
       clean: `rm -f ${libraryName}.tgz`,
       qa: 'tsc && xo --fix',
       go: './build-test.sh',

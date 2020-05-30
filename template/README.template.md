@@ -59,7 +59,7 @@ yarn add {{ libraryName }}
 ### Workflow
 
 1. Make changes
-2. Update tests 
+2. Update tests
 3. `yarn go` and verify that your changes work.
 4. Commit to `master` or make `PR`
 
