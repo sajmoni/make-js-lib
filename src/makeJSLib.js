@@ -12,23 +12,23 @@ const displayDoneMessage = require('./message/done')
 
 const devDependencies = [
   // * Code quality
-  'xo@0.30.0',
-  'typescript@3.9.2',
-  'husky@4.2.5',
-  'lint-staged@10.2.2',
+  'xo@0.34.2',
+  'typescript@4.0.5',
+  'husky@4.3.0',
+  'lint-staged@10.5.1',
   // * --
   // * Testing
-  'ava@3.8.2',
-  '@babel/register@7.9.0',
-  '@babel/core@7.9.6',
-  '@babel/preset-env@7.9.6',
-  '@babel/preset-typescript@7.9.0',
-  // * --
+  'ava@3.13.0',
+  '@babel/register@7.12.1',
+  '@babel/core@7.12.3',
+  '@babel/preset-env@7.12.1',
+  '@babel/preset-typescript@7.12.1',
+  // * --§
   // * Other
-  'rollup@2.10.1',
-  '@rollup/plugin-typescript@4.1.1',
-  'np@6.2.3',
-  'plop@2.6.0',
+  'rollup@2.33.3',
+  '@rollup/plugin-typescript@6.1.0',
+  'np@7.0.0',
+  'plop@2.7.4',
   // * --
 ]
 
@@ -62,7 +62,7 @@ module.exports = ({ libraryName }) => {
         try {
           // * Change directory so that Husky gets installed in the right .git folder
           process.chdir(rootPath)
-        } catch (_) {
+        } catch {
           throw new Error(`Could not change to project directory: ${rootPath}`)
         }
 
@@ -78,7 +78,7 @@ module.exports = ({ libraryName }) => {
     {
       title: 'Copy template files',
       task: () => {
-        const templateDirectory = `${__dirname}/template/folder`
+        const templateDirectory = path.join(__dirname, `/template/folder`)
 
         try {
           fs.copySync(templateDirectory, rootPath)
@@ -89,12 +89,12 @@ module.exports = ({ libraryName }) => {
         // * Rename gitignore to prevent npm from renaming it to .npmignore
         // * See: https://github.com/npm/npm/issues/1862
         fs.copySync(
-          `${__dirname}/template/gitignore`,
+          path.join(__dirname, `/template/gitignore`),
           path.join(rootPath, '.gitignore'),
         )
 
         const readmeTemplateString = fs
-          .readFileSync(`${__dirname}/template/README.template.md`)
+          .readFileSync(path.join(__dirname, `$/template/README.template.md`))
           .toString()
         const readme = Mustache.render(readmeTemplateString, { libraryName })
         fs.writeFileSync(path.join(rootPath, 'README.md'), readme)
@@ -102,7 +102,7 @@ module.exports = ({ libraryName }) => {
         const buildFileName = 'build-test.sh'
 
         const buildFileString = fs
-          .readFileSync(`${__dirname}/template/${buildFileName}`)
+          .readFileSync(path.join(__dirname, `/template/${buildFileName}`))
           .toString()
         const buildFile = Mustache.render(buildFileString, { libraryName })
         const buildPath = path.join(rootPath, 'build-test.sh')
@@ -168,8 +168,10 @@ module.exports = ({ libraryName }) => {
           try {
             fs.removeSync(path.join(rootPath, '.git'))
             throw new Error(`Could not create commit ${error}`)
-          } catch (_) {
-            throw new Error(`Could not create commit ${error}`)
+          } catch (error) {
+            throw new Error(
+              `Could not create commit, could not remove git folder ${error}`,
+            )
           }
         }
       },

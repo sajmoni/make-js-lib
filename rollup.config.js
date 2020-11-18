@@ -4,7 +4,7 @@ import copy from 'rollup-plugin-copy'
 
 const OUTPUT_FOLDER = 'dist'
 
-export default {
+const config = {
   input: 'src/index.js',
   output: {
     banner: '#!/usr/bin/env node',
@@ -30,3 +30,5 @@ export default {
     }),
   ],
 }
+
+export default config
