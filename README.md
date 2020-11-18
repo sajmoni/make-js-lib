@@ -69,7 +69,6 @@ my-lib
 ├── .npmrc
 ├── README.md
 ├── package.json
-├── docs
 ├── node_modules
 ├── example
 │   ├── index.js
