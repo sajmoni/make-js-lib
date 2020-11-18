@@ -23,12 +23,11 @@ const devDependencies = [
   '@babel/core@7.12.3',
   '@babel/preset-env@7.12.1',
   '@babel/preset-typescript@7.12.1',
-  // * --§
+  // * --
   // * Other
   'rollup@2.33.3',
   '@rollup/plugin-typescript@6.1.0',
   'np@7.0.0',
-  'plop@2.7.4',
   // * --
 ]
 

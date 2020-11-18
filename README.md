@@ -69,15 +69,11 @@ my-lib
 ├── .npmrc
 ├── README.md
 ├── package.json
-├── plopfile.js
 ├── docs
 ├── node_modules
 ├── example
 │   ├── index.js
 │   └── package.json
-├── plop
-│   ├── docs.hbs
-│   └── test.hbs
 └── src
     ├── index.js
     └── index.test.js
