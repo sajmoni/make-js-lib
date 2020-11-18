@@ -93,7 +93,7 @@ module.exports = ({ libraryName }) => {
         )
 
         const readmeTemplateString = fs
-          .readFileSync(path.join(__dirname, `$/template/README.template.md`))
+          .readFileSync(path.join(__dirname, `/template/README.template.md`))
           .toString()
         const readme = Mustache.render(readmeTemplateString, { libraryName })
         fs.writeFileSync(path.join(rootPath, 'README.md'), readme)

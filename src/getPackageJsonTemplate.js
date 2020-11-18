@@ -36,7 +36,6 @@ module.exports = ({ libraryName }) => {
       rules: {
         'unicorn/filename-case': 'off',
         'capitalized-comments': 'off',
-        'dot-notation': 'off',
       },
     },
     husky: {
