@@ -25,6 +25,9 @@
   },
   "xo": {
     "prettier": true,
+    "ignores": [
+      "template"
+    ],
     "env": [
       "es2020",
       "node"
