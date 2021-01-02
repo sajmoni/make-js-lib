@@ -12,22 +12,22 @@ const displayDoneMessage = require('./message/done')
 
 const devDependencies = [
   // * Code quality
-  'xo@0.34.2',
-  'typescript@4.0.5',
-  'husky@4.3.0',
-  'lint-staged@10.5.1',
+  'xo@0.37.1',
+  'typescript@4.1.3',
+  'husky@4.3.6',
+  'lint-staged@10.5.3',
   // * --
   // * Testing
-  'ava@3.13.0',
-  '@babel/register@7.12.1',
-  '@babel/core@7.12.3',
-  '@babel/preset-env@7.12.1',
-  '@babel/preset-typescript@7.12.1',
+  'ava@3.15.0',
+  '@babel/register@7.12.10',
+  '@babel/core@7.12.10',
+  '@babel/preset-env@7.12.11',
+  '@babel/preset-typescript@7.12.7',
   // * --
   // * Other
-  'rollup@2.33.3',
-  '@rollup/plugin-typescript@6.1.0',
-  'np@7.0.0',
+  'rollup@2.35.1',
+  '@rollup/plugin-typescript@8.1.0',
+  'np@7.2.0',
   // * --
 ]
 
