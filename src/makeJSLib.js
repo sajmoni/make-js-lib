@@ -7,7 +7,6 @@ const execa = require('execa')
 const Listr = require('listr')
 
 const getPackageJsonTemplate = require('./getPackageJsonTemplate.js')
-const createFileFromTemplate = require('./createFileFromTemplate.js')
 const displayDoneMessage = require('./message/done')
 
 const devDependencies = [
@@ -125,12 +124,6 @@ module.exports = ({ libraryName }) => {
           path.join(rootPath, 'example/package.json'),
           JSON.stringify(exampleProjectPackageJson, null, 2) + os.EOL,
         )
-
-        createFileFromTemplate({
-          source: 'example-index.test.template.ts',
-          destination: 'example/index.test.ts',
-          options: { libraryName },
-        })
 
         return true
       },
