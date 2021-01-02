@@ -127,8 +127,8 @@ module.exports = ({ libraryName }) => {
         )
 
         createFileFromTemplate({
-          source: 'example-index.test.template.js',
-          destination: 'example/index.test.js',
+          source: 'example-index.test.template.ts',
+          destination: 'example/index.test.ts',
           options: { libraryName },
         })
 

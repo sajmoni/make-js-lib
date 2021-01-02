@@ -8,7 +8,6 @@ module.exports = ({ libraryName }) => {
     scripts: {
       build: 'rm -rf dist && rollup --config rollup.config.js',
       test: 'ava',
-      plop: 'plop',
       release: 'yarn clean && yarn audit && yarn build && np --no-tests',
       clean: `rm -f ${libraryName}.tgz`,
       qa: 'tsc && xo --fix',

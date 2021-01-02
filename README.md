@@ -74,15 +74,15 @@ my-lib
 │   ├── index.js
 │   └── package.json
 └── src
-    ├── index.js
-    └── index.test.js
+    ├── index.ts
+    └── index.test.ts
 ```
 
-### Options
+<!-- ### Options
 
 `--verbose` (TODO)
 
-Display full output. Useful when debugging.
+Display full output. Useful when debugging. -->
 
 ---
 
