@@ -10,9 +10,7 @@ runCommand() {
 
 runCommand "yarn clean"
 runCommand "yarn build"
-runCommand "yarn pack --filename make-js-lib.tgz"
-runCommand "cd example"
-runCommand "yarn refresh"
+runCommand "yarn preview"
 runCommand "yarn make-js-lib test-lib"
 runCommand "cd test-lib"
 runCommand "yarn test"

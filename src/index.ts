@@ -1,10 +1,13 @@
-const commander = require('commander')
-const chalk = require('chalk')
-const CFonts = require('cfonts')
+#!/usr/bin/env node
 
-const packageJson = require('../package.json')
-const displayNoLibraryNameMessage = require('./message/noLibraryName')
-const makeJSLib = require('./makeJSLib')
+import commander from 'commander'
+import chalk from 'chalk'
+import CFonts from 'cfonts'
+
+// @ts-expect-error
+import packageJson from '../package.json'
+import displayNoLibraryNameMessage from './message/noLibraryName'
+import makeJSLib from './makeJSLib'
 
 let libraryName
 

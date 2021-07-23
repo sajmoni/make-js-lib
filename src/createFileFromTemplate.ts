@@ -1,7 +1,8 @@
-const fs = require('fs-extra')
-const Mustache = require('mustache')
-const path = require('path')
+import path from 'node:path'
+import fs from 'fs-extra'
+import Mustache from 'mustache'
 
+// TODO: Use this file
 const createFileFromTemplate = ({ source, destination, options }) => {
   const templateString = fs
     .readFileSync(path.join(__dirname, `/template/${source}`))
@@ -10,4 +11,4 @@ const createFileFromTemplate = ({ source, destination, options }) => {
   fs.writeFileSync(destination, file)
 }
 
-module.exports = createFileFromTemplate
+export default createFileFromTemplate

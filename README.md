@@ -13,21 +13,19 @@
 
 ## :sparkles: Features
 
-- :sushi: [`rollup`](https://github.com/rollup/rollup) - Next-generation ES module bundler
+- [`typescript`](https://github.com/microsoft/TypeScript)
 
 - :arrow_up: [`np`](https://github.com/sindresorhus/np) - A better `npm publish`
 
-- :straight_ruler: [`ava`](https://github.com/avajs/ava) - Super simple test framework
+- :straight_ruler: [`ava`](https://github.com/avajs/ava) - Tests
 
-- :policeman: [`xo`](https://github.com/xojs/xo) and [`tsc`](https://github.com/microsoft/TypeScript) - Ensure code quality
+- :policeman: [`xo`](https://github.com/xojs/xo) - Linter
 
 - :nail_care: [`prettier`](https://github.com/prettier/prettier) - Code formatter
 
 - :no_entry_sign: :poop: [`lint-staged`](https://github.com/okonet/lint-staged) + :dog: [`husky`](https://github.com/typicode/husky) - Ensure code quality on each git commit and push
 
 - :trophy: [`badgen`](https://github.com/badgen/badgen.net) - Readme badges
-
-- Workflow to test your library locally before publishing
 
 ---
 

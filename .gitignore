@@ -3,4 +3,13 @@ node_modules
 dist
 *.log
 .vscode
-.parcel-cache
+test-lib
+
+# yarn
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

@@ -1,12 +1,24 @@
-module.exports = ({ libraryName }) => {
-  const packageJsonTemplate = {
+import { PackageJson } from 'type-fest'
+
+type ExtendedPackageJson = PackageJson & {
+  ava: {
+    require: string[]
+    extensions: string[]
+  }
+  prettier: any
+  xo: any
+  husky: any
+}
+
+const getPackageJsonTemplate = ({ libraryName }) => {
+  const packageJsonTemplate: ExtendedPackageJson = {
     name: libraryName,
     license: 'MIT',
     version: '0.0.0',
     description: '',
     keywords: [],
     scripts: {
-      build: 'rm -rf dist && rollup --config rollup.config.js',
+      build: 'rm -rf dist && tsc',
       test: 'ava',
       release: 'yarn clean && yarn audit && yarn build && np --no-tests',
       clean: `rm -f ${libraryName}.tgz`,
@@ -19,8 +31,8 @@ module.exports = ({ libraryName }) => {
       example: 'example',
     },
     ava: {
-      require: ['./script/setupTests.js'],
-      extensions: ['js', 'ts'],
+      require: ['ts-node/register'],
+      extensions: ['ts'],
     },
     prettier: {
       trailingComma: 'all',
@@ -47,3 +59,5 @@ module.exports = ({ libraryName }) => {
 
   return packageJsonTemplate
 }
+
+export default getPackageJsonTemplate
