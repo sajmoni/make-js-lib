@@ -45,13 +45,13 @@
     }
   },
   "scripts": {
-    "version": "yarn build",
-    "clean": "rm -rf ./test-lib && rm -f make-js-lib.tgz",
+    "version": "npm run build",
+    "clean": "rm -rf ./test-lib",
     "go": "./build-test.sh",
     "all": "./build-test-all.sh",
     "build": "rm -rf dist && tsc",
-    "release": "yarn clean && yarn build && np --no-tests",
-    "qa": "yarn tsc && yarn xo --fix"
+    "release": "npm run clean && npm run build && np --no-tests",
+    "qa": "tsc && xo --fix"
   },
   "dependencies": {
     "cfonts": "2.9.3",

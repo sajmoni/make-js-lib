@@ -6,7 +6,8 @@ import Mustache from 'mustache'
 import execa from 'execa'
 import { Listr } from 'listr2'
 
-import getPackageJsonTemplate from './getPackageJsonTemplate.js'
+import getPackageJsonTemplate from './getPackageJsonTemplate'
+import createFileFromTemplate from './createFileFromTemplate'
 
 const devDependencies = [
   // * Code quality
@@ -56,17 +57,10 @@ const makeJSLib = ({ libraryName }: { libraryName: string }) => {
         }
 
         try {
-          execa.sync('git', ['init'])
+          execa.sync('git', ['init', '-b', 'main'])
         } catch (error: unknown) {
-          throw new Error(`Git repo not initialized ${error}`)
+          throw new Error(`Git repo not initialized ${error as string}`)
         }
-      },
-    },
-    {
-      title: 'Set Yarn version 2',
-      task: () => {
-        process.chdir(rootPath)
-        return execa('yarn', ['set', 'version', 'berry'])
       },
     },
 
@@ -94,23 +88,19 @@ const makeJSLib = ({ libraryName }: { libraryName: string }) => {
         const readme = Mustache.render(readmeTemplateString, { libraryName })
         fs.writeFileSync(path.join(rootPath, 'README.md'), readme)
 
-        const buildFileName = 'build-test.sh'
-
-        const buildFileString = fs
-          .readFileSync(`${templateDirectory}/${buildFileName}`)
-          .toString()
-        const buildFile = Mustache.render(buildFileString, { libraryName })
-        const buildPath = path.join(rootPath, 'build-test.sh')
-        fs.writeFileSync(buildPath, buildFile)
-        fs.chmodSync(buildPath, '755')
+        createFileFromTemplate({
+          source: `${templateDirectory}/test.template.ts`,
+          destination: path.join(rootPath, 'test.ts'),
+          options: { name: libraryName },
+        })
       },
     },
     {
       title: 'Install dependencies',
       task: () => {
-        const command = 'yarn'
-        const defaultArgs = ['add']
-        const devArgs = defaultArgs.concat('--dev').concat(devDependencies)
+        const command = 'npm'
+        const defaultArgs = ['install']
+        const devArgs = defaultArgs.concat('--save-dev').concat(devDependencies)
 
         return execa(command, devArgs, { all: true }).all
       },
@@ -134,16 +124,16 @@ const makeJSLib = ({ libraryName }: { libraryName: string }) => {
     .run()
     .then(() => {
       console.log(`
-      ${chalk.green('Success!')} Created ${chalk.cyan(
+    ${chalk.green('Success!')} Created ${chalk.cyan(
         libraryName,
       )} at ${chalk.cyan(rootPath)}
-    
-      Start by typing:
-    
-        ${chalk.cyan('cd name')}
-    
-        ${chalk.cyan('yarn go')}
-      `)
+
+    Start by typing:
+
+      ${chalk.cyan(`cd ${libraryName}`)}
+
+      ${chalk.cyan('npm run go')}
+    `)
     })
     .catch((error) => {
       console.log()

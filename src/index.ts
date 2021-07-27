@@ -2,17 +2,16 @@
 
 import commander from 'commander'
 import chalk from 'chalk'
+// @ts-expect-error
 import CFonts from 'cfonts'
 
-// @ts-expect-error
-import packageJson from '../package.json'
 import displayNoLibraryNameMessage from './message/noLibraryName'
 import makeJSLib from './makeJSLib'
 
 let libraryName
 
-const program = new commander.Command(packageJson.name)
-  .version(packageJson.version)
+const program = new commander.Command(process.env.npm_package_name)
+  .version(process.env.npm_package_version ?? '-')
   .arguments('<library-name>')
   .usage(`${chalk.green('<library-name>')} [options]`)
   .action((name) => {
@@ -31,12 +30,12 @@ if (typeof libraryName === 'undefined') {
 }
 
 console.log()
-CFonts.say(`${packageJson.name}`, {
+CFonts.say(`${process.env.npm_package_name}`, {
   font: 'tiny',
   colors: ['#d43722'],
   space: false,
 })
-console.log(` v${packageJson.version}`)
+console.log(` v${process.env.npm_package_version ?? '-'}`)
 console.log()
 
 makeJSLib({ libraryName })

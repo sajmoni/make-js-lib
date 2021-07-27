@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-export default ({ program }) => {
+export default ({ program }: { program: any }) => {
   console.log()
   console.error('Please specify the project directory:')
   console.log(

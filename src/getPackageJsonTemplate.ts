@@ -10,7 +10,7 @@ type ExtendedPackageJson = PackageJson & {
   husky: any
 }
 
-const getPackageJsonTemplate = ({ libraryName }) => {
+const getPackageJsonTemplate = ({ libraryName }: { libraryName: string }) => {
   const packageJsonTemplate: ExtendedPackageJson = {
     name: libraryName,
     license: 'MIT',
@@ -19,11 +19,9 @@ const getPackageJsonTemplate = ({ libraryName }) => {
     keywords: [],
     scripts: {
       build: 'rm -rf dist && tsc',
-      test: 'ava',
-      release: 'yarn clean && yarn audit && yarn build && np --no-tests',
-      clean: `rm -f ${libraryName}.tgz`,
+      release: 'np --no-tests',
       qa: 'tsc && xo --fix',
-      go: './build-test.sh',
+      test: 'npm run build && preview && ava',
     },
     main: 'dist/index.js',
     files: ['dist/'],

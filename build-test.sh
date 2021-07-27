@@ -8,9 +8,9 @@ runCommand() {
   echo ""
 }
 
-runCommand "yarn clean"
-runCommand "yarn build"
-runCommand "yarn preview"
-runCommand "yarn make-js-lib test-lib"
+runCommand "npm run clean"
+runCommand "npm run build"
+runCommand "npx preview"
+runCommand "npx make-js-lib test-lib"
 runCommand "cd test-lib"
-runCommand "yarn test"
+runCommand "npm run test"
