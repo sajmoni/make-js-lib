@@ -3,4 +3,4 @@ const config = {
   '**/*.{ts,md}': ['xo --fix'],
 }
 
-export default config
+module.exports = config
