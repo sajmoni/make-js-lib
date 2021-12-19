@@ -19,9 +19,10 @@ const getPackageJsonTemplate = ({ libraryName }: { libraryName: string }) => {
     keywords: [],
     scripts: {
       build: 'rm -rf dist && tsc',
-      release: 'np --no-tests',
+      go: 'npm run build && preview && ava',
+      release: 'npm run build && np --no-tests',
+      test: 'ava',
       qa: 'tsc && xo --fix',
-      test: 'npm run build && preview && ava',
     },
     main: 'dist/index.js',
     files: ['dist/'],
