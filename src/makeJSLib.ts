@@ -71,12 +71,12 @@ const makeJSLib = ({ libraryName }: { libraryName: string }) => {
 
         try {
           fs.copySync(`${templateDirectory}/folder`, rootPath)
-        } catch (error) {
-          throw new Error(`Could not copy template files: ${error}`)
+        } catch (error: any) {
+          throw new Error(`Could not copy template files: ${error.message}`)
         }
 
-        // * Rename gitignore to prevent npm from renaming it to .npmignore
-        // * See: https://github.com/npm/npm/issues/1862
+        fs.moveSync(path.join(rootPath, 'npmrc'), path.join(rootPath, '.npmrc'))
+
         fs.moveSync(
           path.join(rootPath, 'gitignore'),
           path.join(rootPath, '.gitignore'),
@@ -99,7 +99,7 @@ const makeJSLib = ({ libraryName }: { libraryName: string }) => {
       title: 'Install dependencies',
       task: () => {
         const command = 'npm'
-        const defaultArgs = ['install']
+        const defaultArgs = ['install', '--save-exact']
         const devArgs = defaultArgs.concat('--save-dev').concat(devDependencies)
 
         return execa(command, devArgs, { all: true }).all
