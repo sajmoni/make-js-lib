@@ -29,7 +29,7 @@ const getPackageJsonTemplate = ({ libraryName }: { libraryName: string }) => {
       example: 'example',
     },
     ava: {
-      require: ['ts-node/register'],
+      require: ['esbuild-runner/register'],
       extensions: ['ts'],
     },
     prettier: {

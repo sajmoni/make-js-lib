@@ -17,7 +17,7 @@ const devDependencies = [
   'lint-staged@11.0.0',
   // * Testing
   'ava@3.15.0',
-  'ts-node@10.0.0',
+  'esbuild-runner@2.2.1',
   // * Other
   'np@7.2.0',
   'package-preview@4.0.0',
