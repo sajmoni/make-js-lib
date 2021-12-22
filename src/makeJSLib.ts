@@ -129,7 +129,7 @@ const makeJSLib = ({ libraryName }: { libraryName: string }) => {
 
       ${chalk.cyan(`cd ${libraryName}`)}
 
-      ${chalk.cyan('npm run test')}
+      ${chalk.cyan('npm run go')}
     `)
     })
     .catch((error) => {
