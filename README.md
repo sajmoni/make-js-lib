@@ -2,7 +2,7 @@
   make-js-lib
 </h1>
 <h4 align="center">
-  Command line tool to generate javascript libraries
+  Command line tool to generate JavaScript libraries
 </h4>
 
 <div align="center">
@@ -15,17 +15,15 @@
 
 - [`typescript`](https://github.com/microsoft/TypeScript)
 
-- :arrow_up: [`np`](https://github.com/sindresorhus/np) - A better `npm publish`
+- :arrow_up: [`np`](https://github.com/sindresorhus/np)
 
-- :straight_ruler: [`ava`](https://github.com/avajs/ava) - Tests
+- :straight_ruler: [`ava`](https://github.com/avajs/ava)
 
-- :policeman: [`xo`](https://github.com/xojs/xo) - Linter
+- :policeman: [`xo`](https://github.com/xojs/xo)
 
-- :nail_care: [`prettier`](https://github.com/prettier/prettier) - Code formatter
+- :nail_care: [`prettier`](https://github.com/prettier/prettier)
 
-- :no_entry_sign: :poop: [`lint-staged`](https://github.com/okonet/lint-staged) + :dog: [`husky`](https://github.com/typicode/husky) - Ensure code quality on each git commit and push
-
-- :trophy: [`badgen`](https://github.com/badgen/badgen.net) - Readme badges
+- :trophy: [`badgen`](https://github.com/badgen/badgen.net)
 
 ---
 
@@ -58,32 +56,6 @@ npx npm-name-cli <library-name>
 npx make-js-lib my-lib
 ```
 
-The output file structure will look like this:
-
-```
-my-lib
-├── .gitignore
-├── .eslintrc.yml
-├── .npmrc
-├── README.md
-├── package.json
-├── node_modules
-├── example
-│   ├── index.js
-│   └── package.json
-└── src
-    ├── index.ts
-    └── index.test.ts
-```
-
-<!-- ### Options
-
-`--verbose` (TODO)
-
-Display full output. Useful when debugging. -->
-
----
-
 ## What to do after the script is run
 
 - Add a license: https://help.github.com/en/github/building-a-strong-community/adding-a-license-to-a-repository
@@ -105,34 +77,4 @@ _This is required for `np` to be able to publish a changelog_
 
 - Add or remove badges: https://badgen.net/
 
----
-
-## Things you might want to do if your library becomes popular
-
-### Documentation
-
-If you need more advanced documentation, including a blog and translations, one good option is [`docosaurus`](https://github.com/facebook/docusaurus).
-
-### Add GitHub issue and PR templates
-
-https://help.github.com/en/github/building-a-strong-community/about-issue-and-pull-request-templates
-
----
-
-## :computer: Develop
-
-### Commands
-
-| Command        | Description                                  |
-| -------------- | -------------------------------------------- |
-| `yarn build`   | Generate files in the `dist` folder          |
-| `yarn release` | Start the process to release a new version   |
-| `yarn qa`      | Run type check with `tsc` and lint with `xo` |
-| `yarn clean`   | Remove build artefact (`.tgz` file)          |
-| `yarn go`      | Builds and installs to `example` folder      |
-
-### Workflow
-
-1. Make changes
-2. `yarn go` and verify that your changes work
-3. Push `master` or make a `PR`
+- Add GitHub issue and PR templates: https://help.github.com/en/github/building-a-strong-community/about-issue-and-pull-request-templates
