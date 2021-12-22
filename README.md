@@ -13,34 +13,38 @@
 
 ## :sparkles: Features
 
-- [`typescript`](https://github.com/microsoft/TypeScript)
+`make-js-lib` is a cli that creates a JavaScript library from a template.
 
-- :arrow_up: [`np`](https://github.com/sindresorhus/np)
+When run it does the following:
 
-- :straight_ruler: [`ava`](https://github.com/avajs/ava)
+- Creates a project folder
+- Adds files from template
+- Installs dependencies
+- Makes a commit
 
-- :policeman: [`xo`](https://github.com/xojs/xo)
+### Dependencies included
 
-- :nail_care: [`prettier`](https://github.com/prettier/prettier)
+- [`typescript`](https://github.com/microsoft/TypeScript) - TypeScript is a superset of JavaScript that compiles to clean JavaScript output.
 
-- :trophy: [`badgen`](https://github.com/badgen/badgen.net)
+- [`np`](https://github.com/sindresorhus/np) - A better `npm publish`
+
+- [`ava`](https://github.com/avajs/ava) - Node.js test runner that lets you develop with confidence 🚀
+
+- [`xo`](https://github.com/xojs/xo) - ❤️ JavaScript/TypeScript linter (ESLint wrapper) with great defaults
+
+- [`esbuild-runner`](https://github.com/folke/esbuild-runner) - ⚡️ Super-fast on-the-fly transpilation of modern JS, TypeScript and JSX using esbuild
+
+- [`package-preview`](https://github.com/zkochan/package-preview) - Creates a production preview of a package
 
 ---
 
 ## Usage
 
 ```
-npx make-js-lib <library-name> [options]
+npx make-js-lib <library-name>
 ```
 
 _Usage with `npx` ensures that you are always using the latest version_
-
-`make-js-lib` will do the following:
-
-- Create a new folder called `<library-name>`
-- Copy all template files to that folder
-- Install the dependencies
-- Make an initial commit
 
 ### Before you start
 
@@ -48,12 +52,6 @@ If you intend to publish this to `npm`, then you should check the availability o
 
 ```sh
 npx npm-name-cli <library-name>
-```
-
-### Example usage
-
-```sh
-npx make-js-lib my-lib
 ```
 
 ## What to do after the script is run
