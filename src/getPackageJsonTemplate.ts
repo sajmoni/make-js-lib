@@ -7,7 +7,6 @@ type ExtendedPackageJson = PackageJson & {
   }
   prettier: any
   xo: any
-  husky: any
 }
 
 const getPackageJsonTemplate = ({ libraryName }: { libraryName: string }) => {
@@ -46,12 +45,6 @@ const getPackageJsonTemplate = ({ libraryName }: { libraryName: string }) => {
       rules: {
         'unicorn/filename-case': 'off',
         'capitalized-comments': 'off',
-      },
-    },
-    husky: {
-      hooks: {
-        'pre-commit': 'lint-staged',
-        'pre-push': 'yarn test',
       },
     },
   }

@@ -44,8 +44,6 @@ When run it does the following:
 npx make-js-lib <library-name>
 ```
 
-_Usage with `npx` ensures that you are always using the latest version_
-
 ### Before you start
 
 If you intend to publish this to `npm`, then you should check the availability of your name with [`npm-name-cli`](https://github.com/sindresorhus/npm-name-cli):
