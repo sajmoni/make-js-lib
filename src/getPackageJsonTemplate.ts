@@ -25,9 +25,6 @@ const getPackageJsonTemplate = ({ libraryName }: { libraryName: string }) => {
     },
     main: 'dist/index.js',
     files: ['dist/'],
-    directories: {
-      example: 'example',
-    },
     ava: {
       require: ['esbuild-runner/register'],
       extensions: ['ts'],
@@ -43,6 +40,7 @@ const getPackageJsonTemplate = ({ libraryName }: { libraryName: string }) => {
       prettier: true,
       env: ['es2020', 'node'],
       rules: {
+        'import/no-extraneous-dependencies': 'off',
         'unicorn/filename-case': 'off',
         'capitalized-comments': 'off',
       },
