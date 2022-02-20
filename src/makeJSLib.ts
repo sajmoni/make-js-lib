@@ -11,10 +11,10 @@ import createFileFromTemplate from './createFileFromTemplate'
 
 const devDependencies = [
   // * Code quality
-  'xo@0.47.0',
-  'typescript@4.5.4',
+  'xo@0.48.0',
+  'typescript@4.5.5',
   // * Testing
-  'ava@3.15.0',
+  'ava@4.0.1',
   'esbuild-runner@2.2.1',
   // * Other
   'np@7.6.0',
