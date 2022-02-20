@@ -24,6 +24,10 @@ const getPackageJsonTemplate = ({ libraryName }: { libraryName: string }) => {
       qa: 'tsc && xo --fix',
     },
     main: 'dist/index.js',
+    repository: {
+      type: 'git',
+      url: '',
+    },
     files: ['dist/'],
     ava: {
       require: ['esbuild-runner/register'],

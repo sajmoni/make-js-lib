@@ -56,7 +56,7 @@ npx npm-name-cli <library-name>
 
 - Add a license: https://help.github.com/en/github/building-a-strong-community/adding-a-license-to-a-repository
 
-- Update the repository field in package.json:
+- Update the repository url field in package.json:
 
 ```json
 "repository": {
